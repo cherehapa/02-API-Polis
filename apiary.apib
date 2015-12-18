@@ -35,19 +35,32 @@ HOST: http://api.staging.cherehapa.ru/v2
 - *card[holder]* - фамилия и имя держателя карты - строка (Alexander Pavlov)
 
 
-Расчёт стоимости страховых продуктов Для расчета стоимости страховых продуктов необходимо отправить GET-запрос:
-~~по адресу /quote (для расчета всех продуктов) или /quote/id~~
+Расчёт стоимости страховых продуктов. Для расчета стоимости страховых продуктов необходимо отправить следующие GET-запросы:
 
-
-## Создает новый запрос [/request/{id}?key={key}]
+## Стоимость всех продуктов, рассчитанные по данным в запросе [/quote?dateStart=22.12.2014&dateEnd=22.12.2014&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key=%5B{key}%5D&country%5B%5D=italy]
 
 + Parameters
-    + id: `3` (optional, number) - id запроса партнера (например 3)
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
 
-### Метод: GET /request [GET]
+### Метод: GET /quote [GET]
 
-Выводится список запросов, сделанных партнером. В примере дана только первая запись из всего списка. Для получения всего списка, выполните запрос.
+Выводится стоимость всех продуктов, рассчитанные по данным в запросе.
++ Response 200 (application/json)
+
+            {
+             "status": 200,
+
+            }
+            
+## Стоимость одного продукта id, рассчитанная по данным в запросе [/quote/{id}?dateStart=22.12.2014&dateEnd=22.12.2014&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key=%5B{key}%5D&country%5B%5D=italy]
+
++ Parameters
+    + id: 39 (optional, number) - id продукта (например - 39)
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
+
+### Метод: GET /quote/id [GET]
+
+Выводится стоимость одного продукта id, рассчитанная по данным в запросе.
 + Response 200 (application/json)
 
             {
