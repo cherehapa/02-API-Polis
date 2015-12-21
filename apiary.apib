@@ -37,22 +37,1368 @@ HOST: http://api.staging.cherehapa.ru/v2
 
 Расчёт стоимости страховых продуктов. Для расчета стоимости страховых продуктов необходимо отправить следующие GET-запросы:
 
-## Стоимость всех продуктов, рассчитанные по данным в запросе [/quote?dateStart=22.12.2014&dateEnd=22.12.2014&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key=%5B{key}%5D&country%5B%5D=italy]
+## Стоимость всех продуктов, рассчитанные по данным в запросе [/quote?dateStart=22.12.2014&dateEnd=22.12.2014&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key={key}&country%5B%5D=italy]
 
 + Parameters
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
 
 ### Метод: GET /quote [GET]
 
-Выводится стоимость всех продуктов, рассчитанные по данным в запросе.
+Выводится стоимость всех продуктов, рассчитанные по данным в запросе. Для полного понимания в качества примера дается весь вывод по запросу.
+
 + Response 200 (application/json)
 
             {
              "status": 200,
-
+              "data": [
+                {
+                  "productId": 4,
+                  "companyId": 1,
+                  "insuranceSubProductId": 12,
+                  "territory": {
+                    "id": 3,
+                    "code": "t1",
+                    "countryGroup": [
+                      "erv-t1",
+                      "erv-all-no-russia",
+                      "erv-t4"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "128",
+                      "result": 1.63,
+                      "serviceId": "1"
+                    },
+                    {
+                      "idCalcRules": "0",
+                      "result": 0.87,
+                      "serviceId": "110"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 2.5,
+                  "priceRub": 178.3,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 1.63,
+                          "serviceId": "1"
+                        },
+                        {
+                          "result": 0.87,
+                          "serviceId": "110"
+                        }
+                      ],
+                      "resultPerTourist": 2.5
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 10,
+                          "code": "euroalarm",
+                          "name": "Euro-Center",
+                          "phone": [
+                            "+74956444345",
+                            "+420221860620"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.7093,
+                  "matchRatingPerCompany": 0.5,
+                  "matchDetails": {
+                    "totalServices": 33,
+                    "additionalServices": 31,
+                    "missingServices": 0,
+                    "matchingServices": 2,
+                    "higherSumms": 0,
+                    "lowerSumms": 1,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0056,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "medicine": 30000,
+                    "ambulatoryCare": 1,
+                    "doctorCall": 1,
+                    "hospitalTreatment": 1,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 1,
+                    "drugRefund": 1,
+                    "deathRepatriation": 1,
+                    "phoneRefund": 1,
+                    "urgentStomatology": 1,
+                    "insuredReturn": 1,
+                    "insuredEscortReturn": 1,
+                    "insuredLiving": 1,
+                    "thirdPartyTransportation": 1,
+                    "insuredEscortLiving": 1,
+                    "childrenReturn": 1,
+                    "relativeIllReturn": 1,
+                    "insurerTemporaryReturn": 1,
+                    "terrorAssistance": 1,
+                    "disasterAssistance": 1,
+                    "chronicArresting": 1,
+                    "allergyArresting": 1,
+                    "sunburnAssistance": 1,
+                    "oncologyAssistance": 1,
+                    "alcoholAssistance": 1,
+                    "searchActivities": 0,
+                    "aviaCargo": 1000,
+                    "accident": 5000,
+                    "civilLiability": 25000,
+                    "regularDelay": 1,
+                    "document": 1,
+                    "pregnancy": 0,
+                    "auto": 1,
+                    "foreign": 0,
+                    "legal": 2000,
+                    "delayCargo": 200,
+                    "rescueActivities": 0
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 1,
+                  "companyId": 1,
+                  "insuranceSubProductId": 6,
+                  "territory": {
+                    "id": 3,
+                    "code": "t1",
+                    "countryGroup": [
+                      "erv-t1",
+                      "erv-all-no-russia",
+                      "erv-t4"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "116",
+                      "result": 1.21,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 1.21,
+                  "priceRub": 86.3,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 1.21,
+                          "serviceId": "1"
+                        }
+                      ],
+                      "resultPerTourist": 1.21
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 10,
+                          "code": "euroalarm",
+                          "name": "Euro-Center",
+                          "phone": [
+                            "+74956444345",
+                            "+420221860620"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.6201,
+                  "matchRatingPerCompany": 0.508,
+                  "matchDetails": {
+                    "totalServices": 28,
+                    "additionalServices": 27,
+                    "missingServices": 1,
+                    "matchingServices": 1,
+                    "higherSumms": 0,
+                    "lowerSumms": 0,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0086,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "medicine": 30000,
+                    "ambulatoryCare": 1,
+                    "doctorCall": 1,
+                    "hospitalTreatment": 1,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 1,
+                    "drugRefund": 1,
+                    "deathRepatriation": 1,
+                    "phoneRefund": 1,
+                    "urgentStomatology": 1,
+                    "insuredReturn": 1,
+                    "insuredEscortReturn": 1,
+                    "insuredLiving": 1,
+                    "thirdPartyTransportation": 1,
+                    "insuredEscortLiving": 1,
+                    "childrenReturn": 1,
+                    "relativeIllReturn": 1,
+                    "insurerTemporaryReturn": 1,
+                    "terrorAssistance": 1,
+                    "disasterAssistance": 1,
+                    "chronicArresting": 1,
+                    "allergyArresting": 1,
+                    "sunburnAssistance": 1,
+                    "oncologyAssistance": 1,
+                    "searchActivities": 0,
+                    "regularDelay": 1,
+                    "document": 1,
+                    "pregnancy": 0,
+                    "auto": 1,
+                    "foreign": 0,
+                    "legal": 2000,
+                    "rescueActivities": 0
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 9,
+                  "companyId": 23,
+                  "insuranceSubProductId": 29,
+                  "territory": {
+                    "id": 10,
+                    "code": "t1",
+                    "countryGroup": [
+                      "all",
+                      "alfa-t1",
+                      "alfa-no-rus-tha"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "197",
+                      "result": 1,
+                      "serviceId": "1"
+                    },
+                    {
+                      "idCalcRules": "148",
+                      "result": 7.7,
+                      "serviceId": "110"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 8.7,
+                  "priceRub": 620.5,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 1,
+                          "serviceId": "1"
+                        },
+                        {
+                          "result": 7.7,
+                          "serviceId": "110"
+                        }
+                      ],
+                      "resultPerTourist": 8.7
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 13,
+                          "code": "class",
+                          "name": "Class Assistance",
+                          "phone": [
+                            "+78126407292",
+                            "+78126447292",
+                            "+74959848086"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.5244,
+                  "matchRatingPerCompany": 0.5,
+                  "matchDetails": {
+                    "totalServices": 21,
+                    "additionalServices": 19,
+                    "missingServices": 0,
+                    "matchingServices": 2,
+                    "higherSumms": 0,
+                    "lowerSumms": 1,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0003,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "medicine": 30000,
+                    "ambulatoryCare": 30000,
+                    "doctorCall": 30000,
+                    "hospitalTreatment": 30000,
+                    "doctorTransportation": 30000,
+                    "abroadTransportation": 30000,
+                    "drugRefund": 30000,
+                    "deathRepatriation": 5000,
+                    "phoneRefund": 100,
+                    "urgentStomatology": 150,
+                    "insuredReturn": 1500,
+                    "thirdPartyTransportation": 1500,
+                    "childrenReturn": 1500,
+                    "relativeIllReturn": 1500,
+                    "insurerTemporaryReturn": 1500,
+                    "aviaCargo": 1000,
+                    "accident": 0,
+                    "civilLiability": 0,
+                    "regularDelay": 1,
+                    "document": 300,
+                    "legal": 2500,
+                    "foreign": 0,
+                    "abroad": 0,
+                    "allergyArresting": 1,
+                    "searchActivities": 1
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 6,
+                  "companyId": 23,
+                  "insuranceSubProductId": 26,
+                  "territory": {
+                    "id": 10,
+                    "code": "t1",
+                    "countryGroup": [
+                      "all",
+                      "alfa-t1",
+                      "alfa-no-rus-tha"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "148",
+                      "result": 7.7,
+                      "serviceId": "110"
+                    },
+                    {
+                      "idCalcRules": "0",
+                      "result": 0.9,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 8.6,
+                  "priceRub": 613.36,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 0.9,
+                          "serviceId": "1"
+                        },
+                        {
+                          "result": 7.7,
+                          "serviceId": "110"
+                        }
+                      ],
+                      "resultPerTourist": 8.6
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 13,
+                          "code": "class",
+                          "name": "Class Assistance",
+                          "phone": [
+                            "+78126407292",
+                            "+78126447292",
+                            "+74959848086"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.5253,
+                  "matchRatingPerCompany": 0.5058,
+                  "matchDetails": {
+                    "totalServices": 15,
+                    "additionalServices": 13,
+                    "missingServices": 0,
+                    "matchingServices": 2,
+                    "higherSumms": 0,
+                    "lowerSumms": 1,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0003,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "medicine": 30000,
+                    "ambulatoryCare": 30000,
+                    "doctorCall": 30000,
+                    "hospitalTreatment": 30000,
+                    "doctorTransportation": 30000,
+                    "abroadTransportation": 30000,
+                    "drugRefund": 30000,
+                    "deathRepatriation": 5000,
+                    "phoneRefund": 100,
+                    "urgentStomatology": 150,
+                    "insuredReturn": 1500,
+                    "childrenReturn": 1500,
+                    "aviaCargo": 1000,
+                    "accident": 0,
+                    "civilLiability": 0,
+                    "foreign": 0,
+                    "abroad": 0,
+                    "allergyArresting": 1,
+                    "searchActivities": 1
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 92,
+                  "companyId": 35,
+                  "insuranceSubProductId": 166,
+                  "territory": {
+                    "id": 118,
+                    "code": "shengen",
+                    "countryGroup": [
+                      "ingos-schengen",
+                      "all-no-usa",
+                      "all-usa",
+                      "all-thailand"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "4370",
+                      "result": 0.87,
+                      "serviceId": "1"
+                    },
+                    {
+                      "idCalcRules": "3532",
+                      "result": 8.475,
+                      "serviceId": "110"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 9.34,
+                  "priceRub": 666.14,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 0.87,
+                          "serviceId": "1"
+                        },
+                        {
+                          "result": 8.475,
+                          "serviceId": "110"
+                        }
+                      ],
+                      "resultPerTourist": 9.345
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "italy": [
+                        {
+                          "id": 1,
+                          "code": "smile",
+                          "name": "Smile Assistance",
+                          "phone": [
+                            "+34912986432"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "all": [
+                        {
+                          "id": 1,
+                          "code": "smile",
+                          "name": "Smile Assistance",
+                          "phone": [
+                            "+74959214661",
+                            "+442035194494"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.536,
+                  "matchRatingPerCompany": 0.5,
+                  "matchDetails": {
+                    "totalServices": 14,
+                    "additionalServices": 12,
+                    "missingServices": 0,
+                    "matchingServices": 2,
+                    "higherSumms": 0,
+                    "lowerSumms": 0,
+                    "matchingSumms": 2,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0,
+                    "payoutRating": 0.00885
+                  },
+                  "serviceProduct": {
+                    "abroad": 0,
+                    "foreign": 0,
+                    "medicine": 30000,
+                    "doctorCall": 1,
+                    "ambulatoryCare": 1,
+                    "hospitalTreatment": 1,
+                    "urgentStomatology": 1,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 1,
+                    "drugRefund": 1,
+                    "phoneRefund": 1,
+                    "deathRepatriation": 1,
+                    "insuredReturn": 1,
+                    "thirdPartyTransportation": 1,
+                    "childrenReturn": 1,
+                    "disasterAssistance": 0,
+                    "sunburnAssistance": 0,
+                    "aviaCargo": 1500,
+                    "accident": 0,
+                    "civilLiability": 0,
+                    "work": 0,
+                    "chronicArresting": 0,
+                    "legal": 0
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 123,
+                  "companyId": 40,
+                  "insuranceSubProductId": 197,
+                  "territory": {
+                    "id": 241,
+                    "code": "t4",
+                    "countryGroup": [
+                      "all",
+                      "zetta-all-no-usa",
+                      "zetta-all-no-usa-ta"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "3026",
+                      "result": 0.99,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 0.99,
+                  "priceRub": 70.61,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 0.99,
+                          "serviceId": "1"
+                        }
+                      ],
+                      "resultPerTourist": 0.99
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 19,
+                          "code": "apc",
+                          "name": "AP Companies",
+                          "phone": [
+                            "+74959895128"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.6495,
+                  "matchRatingPerCompany": 0.25,
+                  "matchDetails": {
+                    "totalServices": 22,
+                    "additionalServices": 21,
+                    "missingServices": 1,
+                    "matchingServices": 1,
+                    "higherSumms": 0,
+                    "lowerSumms": 0,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0095,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "doctorCall": 30000,
+                    "foreign": 0,
+                    "ambulatoryCare": 1,
+                    "hospitalTreatment": 1,
+                    "urgentStomatology": 150,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 30000,
+                    "drugRefund": 1,
+                    "phoneRefund": 50,
+                    "deathRepatriation": 15000,
+                    "insuredReturn": 1,
+                    "insuredEscortReturn": 1,
+                    "insuredLiving": 1,
+                    "thirdPartyTransportation": 1000,
+                    "insuredEscortLiving": 1000,
+                    "childrenReturn": 1000,
+                    "relativeIllReturn": 1,
+                    "insurerTemporaryReturn": 500,
+                    "disasterAssistance": 1,
+                    "accident": 0,
+                    "regularDelay": 500,
+                    "document": 150,
+                    "legal": 500,
+                    "medicine": 30000
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 120,
+                  "companyId": 40,
+                  "insuranceSubProductId": 195,
+                  "territory": {
+                    "id": 241,
+                    "code": "t4",
+                    "countryGroup": [
+                      "all",
+                      "zetta-all-no-usa",
+                      "zetta-all-no-usa-ta"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "3026",
+                      "result": 0.87,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 0.87,
+                  "priceRub": 62.05,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 0.87,
+                          "serviceId": "1"
+                        }
+                      ],
+                      "resultPerTourist": 0.87
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 19,
+                          "code": "apc",
+                          "name": "AP Companies",
+                          "phone": [
+                            "+74959895128"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.6679,
+                  "matchRatingPerCompany": 0.3106,
+                  "matchDetails": {
+                    "totalServices": 13,
+                    "additionalServices": 12,
+                    "missingServices": 1,
+                    "matchingServices": 1,
+                    "higherSumms": 0,
+                    "lowerSumms": 0,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.01,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "doctorCall": 30000,
+                    "foreign": 0,
+                    "ambulatoryCare": 1,
+                    "hospitalTreatment": 1,
+                    "urgentStomatology": 150,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 15000,
+                    "drugRefund": 1,
+                    "phoneRefund": 50,
+                    "deathRepatriation": 15000,
+                    "insuredReturn": 1,
+                    "childrenReturn": 1000,
+                    "disasterAssistance": 1,
+                    "accident": 0,
+                    "medicine": 30000
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 159,
+                  "companyId": 44,
+                  "insuranceSubProductId": 286,
+                  "territory": {
+                    "id": 160,
+                    "code": "all-no-car",
+                    "countryGroup": [
+                      "vazhno-no-carribean",
+                      "vazhno-no-usa",
+                      "vazhno-no-cis"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "1552",
+                      "result": 1,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 1,
+                  "priceRub": 72,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 1,
+                          "serviceId": "1"
+                        }
+                      ],
+                      "resultPerTourist": 1
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 4,
+                          "code": "gva",
+                          "name": "Global Voyager Assistance",
+                          "phone": [
+                            "+74957750999"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.6463,
+                  "matchRatingPerCompany": 0.25,
+                  "matchDetails": {
+                    "totalServices": 16,
+                    "additionalServices": 15,
+                    "missingServices": 1,
+                    "matchingServices": 1,
+                    "higherSumms": 0,
+                    "lowerSumms": 0,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0094,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "medicine": 30000,
+                    "multipolicy": 0,
+                    "abroad": 0,
+                    "foreign": 0,
+                    "doctorCall": 1,
+                    "ambulatoryCare": 1,
+                    "hospitalTreatment": 1,
+                    "urgentStomatology": 1,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 1,
+                    "drugRefund": 1,
+                    "phoneRefund": 1,
+                    "deathRepatriation": 1,
+                    "insuredReturn": 1,
+                    "thirdPartyTransportation": 1,
+                    "childrenReturn": 1,
+                    "relativeIllReturn": 1,
+                    "disasterAssistance": 1,
+                    "chronicArresting": 1,
+                    "civilLiability": 0,
+                    "searchActivities": 0,
+                    "rescueActivities": 0
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 234,
+                  "companyId": 51,
+                  "insuranceSubProductId": 454,
+                  "territory": {
+                    "id": 274,
+                    "code": "t1",
+                    "countryGroup": [
+                      "soglasie-usa",
+                      "soglasie-all-no-usa",
+                      "soglasie-world",
+                      "soglasie-allworld"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "2946",
+                      "result": 2,
+                      "serviceId": "110"
+                    },
+                    {
+                      "idCalcRules": "2875",
+                      "result": 1,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 3,
+                  "priceRub": 213.96,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 1,
+                          "serviceId": "1"
+                        },
+                        {
+                          "result": 2,
+                          "serviceId": "110"
+                        }
+                      ],
+                      "resultPerTourist": 3
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "italy": [
+                        {
+                          "id": 30,
+                          "code": "savitar",
+                          "name": "Savitar Group",
+                          "phone": [
+                            "+390236311466"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "all": [
+                        {
+                          "id": 30,
+                          "code": "savitar",
+                          "name": "Savitar Group",
+                          "phone": [
+                            "+74959871775",
+                            "+74959871776"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.7132,
+                  "matchRatingPerCompany": 0.5,
+                  "matchDetails": {
+                    "totalServices": 18,
+                    "additionalServices": 16,
+                    "missingServices": 0,
+                    "matchingServices": 2,
+                    "higherSumms": 1,
+                    "lowerSumms": 0,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0048,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "foreign": 0,
+                    "doctorCall": 1,
+                    "ambulatoryCare": 1,
+                    "hospitalTreatment": 1,
+                    "urgentStomatology": 200,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 1,
+                    "drugRefund": 1,
+                    "phoneRefund": 1,
+                    "deathRepatriation": 1,
+                    "insuredReturn": 1,
+                    "insuredEscortReturn": 1,
+                    "insuredLiving": 1,
+                    "thirdPartyTransportation": 1,
+                    "insuredEscortLiving": 1,
+                    "childrenReturn": 1,
+                    "allergyArresting": 1,
+                    "aviaCargo": 2000,
+                    "regularDelay": 0,
+                    "medicine": 30000,
+                    "accident": 0
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 231,
+                  "companyId": 51,
+                  "insuranceSubProductId": 442,
+                  "territory": {
+                    "id": 274,
+                    "code": "t1",
+                    "countryGroup": [
+                      "soglasie-usa",
+                      "soglasie-all-no-usa",
+                      "soglasie-world",
+                      "soglasie-allworld"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "2946",
+                      "result": 2,
+                      "serviceId": "110"
+                    },
+                    {
+                      "idCalcRules": "2867",
+                      "result": 0.85,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 2.85,
+                  "priceRub": 203.27,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 0.85,
+                          "serviceId": "1"
+                        },
+                        {
+                          "result": 2,
+                          "serviceId": "110"
+                        }
+                      ],
+                      "resultPerTourist": 2.85
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "italy": [
+                        {
+                          "id": 30,
+                          "code": "savitar",
+                          "name": "Savitar Group",
+                          "phone": [
+                            "+390236311466"
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "all": [
+                        {
+                          "id": 30,
+                          "code": "savitar",
+                          "name": "Savitar Group",
+                          "phone": [
+                            "+74959871775",
+                            "+74959871776"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.7201,
+                  "matchRatingPerCompany": 0.525,
+                  "matchDetails": {
+                    "totalServices": 14,
+                    "additionalServices": 12,
+                    "missingServices": 0,
+                    "matchingServices": 2,
+                    "higherSumms": 1,
+                    "lowerSumms": 0,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.005,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "foreign": 0,
+                    "doctorCall": 1,
+                    "ambulatoryCare": 1,
+                    "hospitalTreatment": 1,
+                    "urgentStomatology": 150,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 1,
+                    "drugRefund": 1,
+                    "phoneRefund": 1,
+                    "deathRepatriation": 1,
+                    "insuredReturn": 1,
+                    "insuredEscortReturn": 1,
+                    "allergyArresting": 1,
+                    "aviaCargo": 2000,
+                    "regularDelay": 0,
+                    "medicine": 30000,
+                    "accident": 0
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 201,
+                  "companyId": 52,
+                  "insuranceSubProductId": 416,
+                  "territory": {
+                    "id": 210,
+                    "code": "t1",
+                    "countryGroup": [
+                      "all-no-russia",
+                      "all",
+                      "rstandart-t5",
+                      "rstandart-t1"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "1904",
+                      "result": 1,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 1,
+                  "priceRub": 71.32,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 1,
+                          "serviceId": "1"
+                        }
+                      ],
+                      "resultPerTourist": 1
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 19,
+                          "code": "apc",
+                          "name": "AP Companies",
+                          "phone": [
+                            "+74959891120"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.6482,
+                  "matchRatingPerCompany": 0.25,
+                  "matchDetails": {
+                    "totalServices": 26,
+                    "additionalServices": 25,
+                    "missingServices": 1,
+                    "matchingServices": 1,
+                    "higherSumms": 0,
+                    "lowerSumms": 0,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0094,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "abroad": 0,
+                    "foreign": 0,
+                    "medicine": 30000,
+                    "doctorCall": 1,
+                    "ambulatoryCare": 1,
+                    "hospitalTreatment": 1,
+                    "urgentStomatology": 150,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 30000,
+                    "drugRefund": 1,
+                    "phoneRefund": 50,
+                    "deathRepatriation": 15000,
+                    "insuredReturn": 1,
+                    "insuredEscortReturn": 1000,
+                    "thirdPartyTransportation": 1000,
+                    "insuredEscortLiving": 1,
+                    "childrenReturn": 1000,
+                    "relativeIllReturn": 500,
+                    "insurerTemporaryReturn": 500,
+                    "terrorAssistance": 1,
+                    "disasterAssistance": 1,
+                    "chronicArresting": 1,
+                    "allergyArresting": 1,
+                    "regularDelay": 500,
+                    "dockDelay": 1,
+                    "document": 150,
+                    "legal": 500,
+                    "civilLiability": 20000,
+                    "searchActivities": 0
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 198,
+                  "companyId": 52,
+                  "insuranceSubProductId": 407,
+                  "territory": {
+                    "id": 210,
+                    "code": "t1",
+                    "countryGroup": [
+                      "all-no-russia",
+                      "all",
+                      "rstandart-t5",
+                      "rstandart-t1"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "1895",
+                      "result": 0.85,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 0.85,
+                  "priceRub": 60.62,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 0.85,
+                          "serviceId": "1"
+                        }
+                      ],
+                      "resultPerTourist": 0.85
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 19,
+                          "code": "apc",
+                          "name": "AP Companies",
+                          "phone": [
+                            "+74959891120"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.6722,
+                  "matchRatingPerCompany": 0.325,
+                  "matchDetails": {
+                    "totalServices": 25,
+                    "additionalServices": 24,
+                    "missingServices": 1,
+                    "matchingServices": 1,
+                    "higherSumms": 0,
+                    "lowerSumms": 0,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0101,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "abroad": 0,
+                    "foreign": 0,
+                    "medicine": 30000,
+                    "doctorCall": 1,
+                    "ambulatoryCare": 1,
+                    "hospitalTreatment": 1,
+                    "urgentStomatology": 150,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 30000,
+                    "drugRefund": 1,
+                    "phoneRefund": 50,
+                    "deathRepatriation": 15000,
+                    "insuredReturn": 1,
+                    "insuredEscortReturn": 1000,
+                    "thirdPartyTransportation": 1000,
+                    "insuredEscortLiving": 1,
+                    "childrenReturn": 1000,
+                    "relativeIllReturn": 500,
+                    "insurerTemporaryReturn": 500,
+                    "terrorAssistance": 1,
+                    "disasterAssistance": 1,
+                    "chronicArresting": 1,
+                    "allergyArresting": 1,
+                    "regularDelay": 500,
+                    "dockDelay": 1,
+                    "document": 150,
+                    "legal": 500,
+                    "searchActivities": 0
+                  },
+                  "info": null
+                },
+                {
+                  "productId": 195,
+                  "companyId": 52,
+                  "insuranceSubProductId": 404,
+                  "territory": {
+                    "id": 210,
+                    "code": "t1",
+                    "countryGroup": [
+                      "all-no-russia",
+                      "all",
+                      "rstandart-t5",
+                      "rstandart-t1"
+                    ]
+                  },
+                  "insuredDays": "1",
+                  "services": [
+                    {
+                      "idCalcRules": "1892",
+                      "result": 0.75,
+                      "serviceId": "1"
+                    }
+                  ],
+                  "sport": null,
+                  "currency": "USD",
+                  "price": 0.75,
+                  "priceRub": 53.49,
+                  "infoPerTourist": [
+                    {
+                      "age": 32,
+                      "referenceValue": 1,
+                      "perTourist": [
+                        {
+                          "result": 0.75,
+                          "serviceId": "1"
+                        }
+                      ],
+                      "resultPerTourist": 0.75
+                    }
+                  ],
+                  "assistances": [
+                    {
+                      "all": [
+                        {
+                          "id": 19,
+                          "code": "apc",
+                          "name": "AP Companies",
+                          "phone": [
+                            "+74959891120"
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "matchRating": 0.6899,
+                  "matchRatingPerCompany": 0.375,
+                  "matchDetails": {
+                    "totalServices": 13,
+                    "additionalServices": 12,
+                    "missingServices": 1,
+                    "matchingServices": 1,
+                    "higherSumms": 0,
+                    "lowerSumms": 0,
+                    "matchingSumms": 1,
+                    "expertRaiting": 0,
+                    "isLimited": 0,
+                    "priceRating": 0.0106,
+                    "payoutRating": 0.01065
+                  },
+                  "serviceProduct": {
+                    "abroad": 0,
+                    "foreign": 0,
+                    "medicine": 30000,
+                    "doctorCall": 1,
+                    "ambulatoryCare": 1,
+                    "hospitalTreatment": 1,
+                    "urgentStomatology": 150,
+                    "doctorTransportation": 1,
+                    "abroadTransportation": 15000,
+                    "drugRefund": 1,
+                    "phoneRefund": 50,
+                    "deathRepatriation": 15000,
+                    "disasterAssistance": 1,
+                    "chronicArresting": 1,
+                    "allergyArresting": 1,
+                    "searchActivities": 0
+                  },
+                  "info": null
+                }
+              ],
+              "request": {
+                "dateStart": "22.12.2014",
+                "dateEnd": "22.12.2014",
+                "insuredDays": true,
+                "dateUpdated": "21.12.2015",
+                "dateCreated": "21.12.2015",
+                "id": 2081
+              }
             }
             
-## Стоимость одного продукта id, рассчитанная по данным в запросе [/quote/{id}?dateStart=22.12.2014&dateEnd=22.12.2014&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key=%5B{key}%5D&country%5B%5D=italy]
+## Стоимость одного продукта id, рассчитанная по данным в запросе [/quote/{id}?dateStart=22.12.2014&dateEnd=22.12.2014&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key={key}&country%5B%5D=italy]
 
 + Parameters
     + id: 39 (optional, number) - id продукта (например - 39)
