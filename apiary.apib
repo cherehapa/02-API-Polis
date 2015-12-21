@@ -10,11 +10,11 @@ HOST: http://api.staging.cherehapa.ru/v2
 
 - **dateStart** - дата начала поездки - дата в формате dd.mm.yyyy (22.03.2015)
 - **dateEnd** - дата окончания поездки - дата в формате dd.mm.yyyy (25.03.2015)
-- **country[]** - код или id одной или нескольких стран путешествия - массив строк или массив чисел (количество не ограниченно)
+- *country[]* - код или id одной или нескольких стран путешествия - массив строк или массив чисел (количество не ограниченно)
 - *countryGroup[]* - код или id группы стран - массив строк или массив чисел (schengen, asia)
 - *sport[]* - коды видов спортивной активности - массив строк или массив чисел (surfing, divingCompetition)
 - **insuranceProduct[]** - массив кодов страховых продуктов - число или массив чисел (1, 57)
-- **service[<код услуги>]** - коды и значения страховых сумм поивыбранным услугам - число (service[medicine]=30000, service[legal]=1)
+- **service[<код услуги>]** - коды и значения страховых сумм по выбранным услугам - число (service[medicine]=30000, service[legal]=1)
 - **insurer** - массив данных о покупателе полиса - строка (страхователе)
 - **insurer[name]** - имя страхователя - строка (Alexander)
 - **insurer[lastName]** - фамилия страхователя - строка (Pavlov)
@@ -37,9 +37,34 @@ HOST: http://api.staging.cherehapa.ru/v2
 
 Расчёт стоимости страховых продуктов. Для расчета стоимости страховых продуктов необходимо отправить следующие GET-запросы:
 
-## Стоимость всех продуктов, рассчитанные по данным в запросе [/quote?dateStart=22.12.2014&dateEnd=22.12.2014&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key={key}&country%5B%5D=italy]
+## quote Стоимость всех продуктов, рассчитанные по данным в запросе [/quote?dateStart={dateStart}&dateEnd={dateEnd}&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key={key}&country%5B%5D={country}]
 
 + Parameters
+    + dateStart: `22.12.2014` (required, string) - дата начала поездки в формате dd.mm.yyyy
+    + dateEnd: `25.03.2015` (required, string) - дата окончания поездки в формате dd.mm.yyyy
+    + country: `italy` (optional, string) - код или id одной или нескольких стран путешествия (количество не ограниченно)
+    + countryGroup: `schengen` (optional, string) - код или id группы стран (например schengen, asia)
+    + sport: `surfing` (optional, string) - коды видов спортивной активности (напрмиер surfing, divingCompetition)
+    + insuranceProduct: `1, 57` (required, string) - массив кодов страховых продуктов (например: 1, 57)
+    - **service[<код услуги>]** - коды и значения страховых сумм по выбранным услугам - число (service[medicine]=30000, service[legal]=1)
+    - **insurer** - массив данных о покупателе полиса - строка (страхователе)
+    - **insurer[name]** - имя страхователя - строка (Alexander)
+    - **insurer[lastName]** - фамилия страхователя - строка (Pavlov)
+    - **insurer[email]** - электронная почта страхователя - строка (ap@tsys.pw)
+    - *insurer[phone]* - телефон страхователя в международном формате, без "+" - строка (79264240454)
+    - **tourist[]** - массив данных о туристах - строка
+    - **tourist[#][firstName]** - имя туриста - строка (Alexander)
+    - **tourist[#][lastName]** - фамилия туриста - строка (Pavlov)
+    - **tourist[#][birthday]** - дата рождения туриста - дата в формате dd.mm.yyyy (31.12.1982)
+    - *tourist[#][age]* - возраст туриста - число (можно указывать, когда не известна точная дата рождения)
+    - *paymentSystem* - код платежной системы - число (для безналичной оплаты paymentSystem=8)
+    - *currency* - код валюты страхования - строка (USD, EUR, RUB, по-умолчанию - USD)
+    - *card* - массив данных о банковской карте пользователя - строка (нужен только в том случае, когда выбрана соответствующая платежная система).
+    - *card[number]* - номер банковской карты - строка (4111111111111111)
+    - *card[cvc]* - код безопасности карты - число (123)
+    - *card[month]* - месяц окончания срока действия карты - число (12)
+    - *card[year]* - год окончания срока действия карты - число (15)
+    - *card[holder]* - фамилия и имя держателя карты - строка (Alexander Pavlov)
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
 
 ### Метод: GET /quote [GET]
@@ -1398,7 +1423,7 @@ HOST: http://api.staging.cherehapa.ru/v2
               }
             }
             
-## Стоимость одного продукта id, рассчитанная по данным в запросе [/quote/{id}?dateStart=22.12.2014&dateEnd=22.12.2014&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key={key}&country%5B%5D=italy]
+## quote Стоимость одного продукта id, рассчитанная по данным в запросе [/quote/{id}?dateStart=22.12.2014&dateEnd=22.12.2014&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key={key}&country%5B%5D=italy]
 
 + Parameters
     + id: 39 (optional, number) - id продукта (например - 39)
@@ -1407,9 +1432,143 @@ HOST: http://api.staging.cherehapa.ru/v2
 ### Метод: GET /quote/id [GET]
 
 Выводится стоимость одного продукта id, рассчитанная по данным в запросе.
+
 + Response 200 (application/json)
 
             {
              "status": 200,
 
             }
+            
+## FAIL policy Создание нового полиса [/policy?insuranceProduct%5B%5D=39&insurer%5Bname%5D=Alexander&insurer%5BlastName%5D=Pavlov&insurer%5Bemail%5D=ap%40tsys.pw&dateStart=22.12.2016&dateEnd=23.12.2016&tourist%5B0%5D%5Bbirthday%5D=03.01.1983&tourist%5B0%5D%5BfirstName%5D=Alexander&tourist%5B0%5D%5BlastName%5D=Pavlov&service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0&key={key}&country%5B%5D=italy&paymentSystem=8&_method=post]
+
++ Parameters
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
+
+### Метод: POST /policy [POST]
+
+Создается новый полис по данным в запросе.
+
++ Response 201 (application/json)
+
+            {
+             "status": 201,
+
+            }
+            
+## FAIL policy Отмена выписанного ранее полиса [/policy/{id}?key={key}&_method=delete]
+
++ Parameters
+    + id: 78 (required, number) - id полиса (напрмиер 78).
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
+
+### Метод: DELETE /policy/id [DELETE]
+
+Удаляет полис с указанным id из системы.
+
++ Response 204 (application/json)
+
+            
+## task Подробная информация о задаче и текущем статусе выполнения [/task/{id}?key={key}]
+
++ Parameters
+    + id: 2000 (required, number) - id задачи (напрмиер 2000).
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
+
+### Метод: GET /policy/id [GET]
+
+Выводится подробная информация о задаче с указанным id и текущем статусе выполнения.
+
++ Response 200 (application/json)
+
+            {
+             "status": 200,
+              "data": {
+                "assistance": {
+                  "all": [
+                    {
+                      "id": 4,
+                      "isBlocked": 0,
+                      "code": "gva",
+                      "name": "Global Voyager Assistance",
+                      "email": "info@gvassistance.com",
+                      "url": "http://www.gvassistance.com/",
+                      "phone": [
+                        "+74957750999"
+                      ]
+                    }
+                  ]
+                },
+                "currencyPrice": 0,
+                "insuranceSubProductId": null,
+                "price": 299,
+                "sportGroupFull": null,
+                "sportGroupId": null,
+                "territoryId": null,
+                "touristInfo": null,
+                "apiCalculationId": null,
+                "apiPrice": 0,
+                "currencyApiPrice": 0,
+                "debug": ""
+              },
+              "policy": {
+                "id": 917,
+                "code": "0403/FA/NI/0001/15/W600160",
+                "externalId": 15066,
+                "additionalId": null,
+                "companyId": 44,
+                "file": 866,
+                "insuranceSubProductId": 570,
+                "calculationId": 1073,
+                "insurerId": 4499,
+                "taskId": 2000,
+                "dateCreated": "22.10.2015 19:59:25",
+                "dateConfirmed": "22.10.2015 19:59:46",
+                "dateUpdated": "22.10.2015 19:59:50",
+                "dateCancelled": null,
+                "isArhive": 0,
+                "price": 299
+              },
+              "file": {
+                "id": 866,
+                "name": "0403FANI000115W600160.pdf",
+                "mimeType": "application/pdf\n",
+                "size": 540017,
+                "downloadLink": "https://cherehapatst.s3.amazonaws.com/0403FANI000115W600160.pdf?AWSAccessKeyId=AKIAI2DDUKJRKZSY3JCA&Expires=1450692218&Signature=FAwIhoNv7R64%2FCCHg9%2F8c47WyHE%3D"
+              },
+              "task": {
+                "id": 2000,
+                "code": "CreateConfirmPolicy",
+                "isSuccess": true,
+                "isProcessing": false,
+                "isCancelled": false,
+                "isFatal": false,
+                "hasError": false,
+                "completeness": "1",
+                "currentAction": false
+              }
+            }
+            
+            
+## file Информация о файле и ссылка на загрузку [/file/{id}?key={key}]
+
++ Parameters
+    + id: 78 (required, number) - id полиса (напрмиер 78).
+    + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
+
+### Метод: GET /file/id [GET]
+
+Возвращает информацию о файле и ссылку на загрузку
+
++ Response 200 (application/json)
+
+        {
+        "status": 200,
+          "file": {
+            "id": 78,
+            "name": "0403FAII102315W600033.pdf",
+            "mimeType": "application/pdf\n",
+            "size": 166514,
+            "downloadLink": "https://cherehapatst.s3.amazonaws.com/0403FAII102315W600033.pdf?AWSAccessKeyId=AKIAI2DDUKJRKZSY3JCA&Expires=1450692817&Signature=LNltEY4SQ8%2BH7EOb9lZS2wKP9Kg%3D"
+          }
+        }
