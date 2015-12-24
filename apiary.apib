@@ -34,10 +34,9 @@ HOST: http://api.staging.cherehapa.ru/v2
 - *card[year]* - год окончания срока действия карты - число (15)
 - *card[holder]* - фамилия и имя держателя карты - строка (Alexander Pavlov)
 
-
 Расчёт стоимости страховых продуктов. Для расчета стоимости страховых продуктов необходимо отправить следующие GET-запросы:
 
-## ERROR 449 quote: стоимость всех продуктов, рассчитанные по данным в запросе [/quote?dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&currency={currency}&country%5B%5D={country}&{FullService}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&key={key}]
+## quote: стоимость всех продуктов, рассчитанные по данным в запросе [/quote?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&key={key}]
 
 + Parameters
     + dateStart: `24.12.2015` (required, string)  - дата начала поездки (dd.mm.yyyy)
@@ -45,7 +44,12 @@ HOST: http://api.staging.cherehapa.ru/v2
     + insuredDays: 1 (optional, number) - кол-во дней по страховке (число)
     + currency: `eur` (optional, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
     + country: `italy` (required, string) - код или id одной или нескольких стран путешествия (количество не ограниченно)
-    + FullService: `service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0` (required, string) - коды и значения страховых сумм поивыбранным услугам (service[medicine]=30000&service[legal]=1 **или** service%5Bmedicine%5D=30000&service%5BurgentStomatology%5D=1&service%5Babroad%5D=1 **или** service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0)
+    + service_medicine: `30000` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_aviaCargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_urgentStomatology: `1` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_accinent: `0` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_civilLiability: `0` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_cargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + tourist_id: `0` (required, string) - массив данных о туристе с указанным id (начинается с 0)
     + tourist_age: `32` (optional, string) - возраст туриста (можно указывать, когда не известна точная дата рождения)
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
@@ -1406,7 +1410,7 @@ HOST: http://api.staging.cherehapa.ru/v2
               }
             }
             
-## ERROR 449 quote: стоимость одного продукта id, рассчитанная по данным в запросе [/quote/{id}?dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&currency={currency}&country%5B%5D={country}&{FullService}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&key={key}]
+## quote: стоимость одного продукта id, рассчитанная по данным в запросе [/quote/{id}?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&key={key}]
 
 + Parameters
     + id: 39 (optional, number) - id продукта (например - 39)
@@ -1415,23 +1419,168 @@ HOST: http://api.staging.cherehapa.ru/v2
     + insuredDays: 1 (optional, number) - кол-во дней по страховке (число)
     + currency: `eur` (optional, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
     + country: `italy` (required, string) - код или id одной или нескольких стран путешествия (количество не ограниченно)
-    + FullService: `service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0` (required, string) - коды и значения страховых сумм поивыбранным услугам (service[medicine]=30000&service[legal]=1 **или** service%5Bmedicine%5D=30000&service%5BurgentStomatology%5D=1&service%5Babroad%5D=1 **или** service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0)
+    + service_medicine: `30000` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_aviaCargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_urgentStomatology: `1` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_accinent: `0` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_civilLiability: `0` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_cargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + tourist_id: `0` (required, string) - массив данных о туристе с указанным id (начинается с 0)
     + tourist_age: `32` (optional, string) - возраст туриста (можно указывать, когда не известна точная дата рождения)
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
 
 ### Метод: GET /quote/id [GET]
 
-Выводится стоимость одного продукта id, рассчитанная по данным в запросе.
+Выводится стоимость одного продукта id, рассчитанная по данным в запросе. Если на запрос выдается ошибка 500: Ошибка стороннего API: "The insurance sub products for calc not found", то необходимо увеличить срок поездки или указать большее число дней, так же попробовать использовать более удаленные от текущего момента даты поездки.
 
 + Response 200 (application/json)
 
-            {
-             "status": 200,
-
-            }
+        {
+          "status": 200,
+          "data": {
+            "productId": 39,
+            "companyId": 26,
+            "insuranceSubProductId": 88,
+            "territory": {
+              "id": 33,
+              "code": "t1",
+              "countryGroup": [
+                "rgs-t1",
+                "rgs-t5",
+                "rgs-t7",
+                "rgs-gte30e",
+                "rgs-shengen"
+              ]
+            },
+            "insuredDays": "1",
+            "services": [
+              {
+                "idCalcRules": "2754",
+                "result": 12.75,
+                "serviceId": "110"
+              },
+              {
+                "idCalcRules": "0",
+                "result": 3.21,
+                "serviceId": "1"
+              }
+            ],
+            "sport": null,
+            "currency": "EUR",
+            "price": 15.96,
+            "priceRub": 1237.61,
+            "infoPerTourist": [
+              {
+                "age": 30,
+                "referenceValue": 1,
+                "perTourist": [
+                  {
+                    "result": 3.21,
+                    "serviceId": "1"
+                  },
+                  {
+                    "result": 12.75,
+                    "serviceId": "110"
+                  }
+                ],
+                "resultPerTourist": 15.96
+              }
+            ],
+            "assistances": [
+              {
+                "all": [
+                  {
+                    "id": 4,
+                    "code": "gva",
+                    "name": "Global Voyager Assistance",
+                    "phone": [
+                      "+74957839236"
+                    ]
+                  },
+                  {
+                    "id": 7,
+                    "code": "europ",
+                    "name": "Europ Assistance",
+                    "phone": [
+                      "+74957839236"
+                    ]
+                  },
+                  {
+                    "id": 27,
+                    "code": "fidelitas",
+                    "name": "Fidelitas Assistance",
+                    "phone": [
+                      "+74957839236"
+                    ]
+                  },
+                  {
+                    "id": 30,
+                    "code": "savitar",
+                    "name": "Savitar Group",
+                    "phone": [
+                      "+74957839236"
+                    ]
+                  },
+                  {
+                    "id": 36,
+                    "code": "balt",
+                    "name": "Balt Assistance",
+                    "phone": [
+                      "+74957839236"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "matchRating": 0.5297,
+            "matchRatingPerCompany": 0.5,
+            "matchDetails": {
+              "totalServices": 11,
+              "additionalServices": 8,
+              "missingServices": 0,
+              "matchingServices": 3,
+              "higherSumms": 0,
+              "lowerSumms": 0,
+              "matchingSumms": 2,
+              "expertRaiting": 0,
+              "isLimited": 0,
+              "priceRating": 0,
+              "payoutRating": 2
+            },
+            "serviceProduct": {
+              "doctorCall": 1,
+              "ambulatoryCare": 1,
+              "hospitalTreatment": 1,
+              "urgentStomatology": 1,
+              "doctorTransportation": 1,
+              "abroadTransportation": 1,
+              "drugRefund": 1,
+              "phoneRefund": 1,
+              "deathRepatriation": 1,
+              "medicine": 30000,
+              "work": 0,
+              "pregnancy": 0,
+              "civilLiability": 0,
+              "chronicArresting": 0,
+              "aviaCargo": 1500,
+              "accident": 0,
+              "multipolicy": 0,
+              "searchActivities": 0
+            },
+            "info": null
+          },
+          "request": {
+            "currencyId": "EUR",
+            "dateStart": "24.03.2016",
+            "dateEnd": "25.04.2016",
+            "insuredDays": true,
+            "dateUpdated": "24.12.2015",
+            "dateCreated": "24.12.2015",
+            "id": 2147
+          }
+        }
             
-## API FAIL policy: создание нового полиса [/policy?dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&currency={currency}&country%5B%5D={country}&{FullService}&tourist%5B{tourist_id}%5D%5BfirstName%5D={tourist_firstName}&tourist%5B{tourist_id}%5D%5BlastName%5D={tourist_lastName}&tourist%5B{tourist_id}%5D%5Bhidden%5D={tourist_hidden}&tourist%5B{tourist_id}%5D%5Bbirthday%5D={tourist_birthday}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&insurer%5Bname%5D={insurer_name}&insurer%5BlastName%5D={insurer_lastName}&insurer%5BsecondName%5D={insurer_secondName}&insurer%5BnameRU%5D={insurer_nameRU}&insurer%5BlastNameRU%5D={insurer_lastNameRU}&insurer%5BsecondNameRU%5D={insurer_secondNameRU}&insurer%5Bphone%5D={insurer_phone}&insurer%5Bemail%5D={insurer_email}&insuranceProduct%5B%5D={insuranceProduct}&paymentSystem={paymentSystem}&card%5Bnumber%5D={card_number}&card%5Bmonth%5D={card_month}&card%5Byear%5D={card_year}&card%5Bcvc%5D={card_cvc}&card%5Bholder%5D={card_holder}&key={key}&marker={marker}&partnerId={partnerId}&userId={userId}&coupon={coupon}&_method=post]
+## API FAIL policy: создание нового полиса [/policy?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5BfirstName%5D={tourist_firstName}&tourist%5B{tourist_id}%5D%5BlastName%5D={tourist_lastName}&tourist%5B{tourist_id}%5D%5Bhidden%5D={tourist_hidden}&tourist%5B{tourist_id}%5D%5Bbirthday%5D={tourist_birthday}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&insurer%5Bname%5D={insurer_name}&insurer%5BlastName%5D={insurer_lastName}&insurer%5BsecondName%5D={insurer_secondName}&insurer%5BnameRU%5D={insurer_nameRU}&insurer%5BlastNameRU%5D={insurer_lastNameRU}&insurer%5BsecondNameRU%5D={insurer_secondNameRU}&insurer%5Bphone%5D={insurer_phone}&insurer%5Bemail%5D={insurer_email}&insuranceProduct%5B%5D={insuranceProduct}&paymentSystem={paymentSystem}&card%5Bnumber%5D={card_number}&card%5Bmonth%5D={card_month}&card%5Byear%5D={card_year}&card%5Bcvc%5D={card_cvc}&card%5Bholder%5D={card_holder}&key={key}&marker={marker}&partnerId={partnerId}&userId={userId}&coupon={coupon}&_method=post]
 
 + Parameters
     + dateStart: `24.12.2015` (required, string)  - дата начала поездки (dd.mm.yyyy)
@@ -1439,7 +1588,12 @@ HOST: http://api.staging.cherehapa.ru/v2
     + insuredDays: 1 (optional, number) - кол-во дней по страховке (число)
     + currency: `eur` (optional, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
     + country: `italy` (required, string) - код или id одной или нескольких стран путешествия (количество не ограниченно)
-    + FullService: `service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0` (required, string) - коды и значения страховых сумм поивыбранным услугам (service[medicine]=30000&service[legal]=1 **или** service%5Bmedicine%5D=30000&service%5BurgentStomatology%5D=1&service%5Babroad%5D=1 **или** service%5Bmultipolicy%5D=0&service%5Bmedicine%5D=30000&service%5BaviaCargo%5D=1500&service%5BtripCancel%5D=0&service%5Bpregnancy%5D=0&service%5Baccident%5D=0&service%5BcivilLiability%5D=0&service%5Bproperty%5D=0)
+    + service_medicine: `30000` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_aviaCargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_urgentStomatology: `1` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_accinent: `0` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_civilLiability: `0` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + service_cargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + tourist_id: `0` (required, string) - массив данных о туристе с указанным id (начинается с 0)
     + tourist_lastName: `Bzhezinskiy` (required, string) - фамилия туриста ЛАТИНИЦЕЙ
     + tourist_firstName: `Torvlandor` (required, string) - имя туриста ЛАТИНИЦЕЙ
