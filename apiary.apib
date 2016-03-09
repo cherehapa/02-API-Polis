@@ -1580,7 +1580,7 @@ OST: http://api.staging.cherehapa.ru/v2
           }
         }
             
-## API FAIL policy: создание нового полиса [/policy?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service.medicine}&service%5BaviaCargo%5D={service.aviaCargo}&service%5Baccident%5D={service.accinent}&service%5BcivilLiability%5D={service.civilLiability}&service%5BurgentStomatology%5D={service.urgentStomatology}&service%5Bcargo%5D={service.cargo}&tourist%5B{tourist.id}%5D%5BfirstName%5D={tourist.firstName}&tourist%5B{tourist.id}%5D%5BlastName%5D={tourist.lastName}&tourist%5B{tourist.id}%5D%5Bhidden%5D={tourist.hidden}&tourist%5B{tourist.id}%5D%5Bbirthday%5D={tourist.birthday}&tourist%5B{tourist.id}%5D%5Bage%5D={tourist.age}&insurer%5Bname%5D={insurer.name}&insurer%5BlastName%5D={insurer.lastName}&insurer%5BsecondName%5D={insurer.secondName}&insurer%5BnameRU%5D={insurer.nameRU}&insurer%5BlastNameRU%5D={insurer.lastNameRU}&insurer%5BsecondNameRU%5D={insurer.secondNameRU}&insurer%5Bphone%5D={insurer.phone}&insurer%5Bemail%5D={insurer.email}&insuranceProduct%5B%5D={insuranceProduct}&paymentSystem={paymentSystem}&card%5Bnumber%5D={card.number}&card%5Bmonth%5D={card.month}&card%5Byear%5D={card.year}&card%5Bcvc%5D={card.cvc}&card%5Bholder%5D={card.holder}&key={key}&marker={marker}&partnerId={partnerId}&userId={userId}&coupon={coupon}&_method=post]
+## policy: создание нового полиса [/policy?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service.medicine}&service%5BaviaCargo%5D={service.aviaCargo}&service%5Baccident%5D={service.accinent}&service%5BcivilLiability%5D={service.civilLiability}&service%5BurgentStomatology%5D={service.urgentStomatology}&service%5Bcargo%5D={service.cargo}&tourist%5B{tourist.id}%5D%5BfirstName%5D={tourist.firstName}&tourist%5B{tourist.id}%5D%5BlastName%5D={tourist.lastName}&tourist%5B{tourist.id}%5D%5Bhidden%5D={tourist.hidden}&tourist%5B{tourist.id}%5D%5Bbirthday%5D={tourist.birthday}&tourist%5B{tourist.id}%5D%5Bage%5D={tourist.age}&insurer%5Bname%5D={insurer.name}&insurer%5BlastName%5D={insurer.lastName}&insurer%5BsecondName%5D={insurer.secondName}&insurer%5BnameRU%5D={insurer.nameRU}&insurer%5BlastNameRU%5D={insurer.lastNameRU}&insurer%5BsecondNameRU%5D={insurer.secondNameRU}&insurer%5Bphone%5D={insurer.phone}&insurer%5Bemail%5D={insurer.email}&insuranceProduct%5B%5D={insuranceProduct}&paymentSystem={paymentSystem}&card%5Bnumber%5D={card.number}&card%5Bmonth%5D={card.month}&card%5Byear%5D={card.year}&card%5Bcvc%5D={card.cvc}&card%5Bholder%5D={card.holder}&key={key}&marker={marker}&partnerId={partnerId}&userId={userId}&coupon={coupon}&_method=post]
 
 + Parameters
     + dateStart: `24.12.2015` (required, string)  - дата начала поездки (dd.mm.yyyy)
@@ -1632,7 +1632,7 @@ OST: http://api.staging.cherehapa.ru/v2
 
             }
             
-## ERROR 500 "Полис не был отменен по неизвестной причине" policy: отмена выписанного ранее полиса [/policy/{id}?key={key}&_method=delete]
+## policy: отмена выписанного ранее полиса [/policy/{id}?key={key}&_method=delete]
 
 + Parameters
     + id: 78 (required, number) - id полиса (напрмиер 78).
