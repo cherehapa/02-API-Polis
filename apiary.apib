@@ -31,7 +31,7 @@ HOST: http://sandbox.cherehapa.ru/v2/
 - *card[number]* - номер банковской карты - строка (4111111111111111)
 - *card[cvc]* - код безопасности карты - число (123)
 - *card[month]* - месяц окончания срока действия карты - число (12)
-- *card[year]* - год окончания срока действия карты - число (15)
+- *card[year]* - год окончания срока действия карты - число (18)
 - *card[holder]* - фамилия и имя держателя карты - строка (Alexander Pavlov)
 
 Расчёт стоимости страховых продуктов. Для расчета стоимости страховых продуктов необходимо отправить следующие GET-запросы:
@@ -1608,7 +1608,7 @@ HOST: http://sandbox.cherehapa.ru/v2/
     + insurer.nameRU: `Торвландор` (required, string) - имя страхователя КИРИЛЛИЦЕЙ 
     + insurer.secondNameRU: `Бимульдинович` (required, string) - отчество страхователя КИРИЛЛИЦЕЙ 
     + insurer.lastNameRU: `Бжезинский` (required, string) - отчество страхователя КИРИЛЛИЦЕЙ 
-    + insuranceProduct: `195` (required, string) - массив кодов страховых продуктов (1, 57)
+    + insuranceProduct: `9` (required, string) - массив кодов страховых продуктов (1, 57)
     + paymentSystem: `7` (optional, string) - код платежной системы (для безналичной оплаты paymentSystem=7)
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
     + marker: `123qwe` (required, string) - маркер партнера, это произвольная строка, которая потом будет привязана к заказу и появится в отчете о продажах. Может использоваться для статистических целей, субаффилиатских прогамм, аналитики
@@ -1618,7 +1618,7 @@ HOST: http://sandbox.cherehapa.ru/v2/
     + card.number: `4111111111111111` (required, string) - номер банковской карты
     + card.cvc: `123` (required, string) - код безопасности карты
     + card.month: `12` (required, string) - месяц окончания срока действия карты 
-    + card.year: `15` (required, string) - год окончания срока действия карты (2 последние цифры)
+    + card.year: `18` (required, string) - год окончания срока действия карты (2 последние цифры)
     + card.holder: `Torvlandor+Bzhezinskiy` (required, string) - фамилия и имя держателя карты (в формате Name+LastName)
 
 ### Метод: POST /policy [POST]
@@ -1627,10 +1627,23 @@ HOST: http://sandbox.cherehapa.ru/v2/
 
 + Response 201 (application/json)
 
-            {
-             "status": 201,
-
-            }
+           {
+             "status":201,
+             "data":[[]],
+             "task":{
+                      "code":"CreateOrderTwoStep",
+                      "id":4447,
+                      "isSuccess":false,
+                      "isProcessing":true,
+                      "isCancelled":false,
+                      "isFatal":false,
+                      "hasError":false,
+                      "completeness":null,
+                      "currentAction":{
+                                       "description":"\u0421\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u0435 \u0434\u0430\u043d\u043d\u044b\u0445 \u0437\u0430\u043f\u0440\u043e\u0441\u0430"
+                                      }
+                   }
+           }
             
 ## policy: отмена выписанного ранее полиса [/policy/{id}?key={key}&_method=delete]
 
@@ -1642,7 +1655,27 @@ HOST: http://sandbox.cherehapa.ru/v2/
 
 Удаляет полис с указанным id из системы.
 
-+ Response 204 (application/json)
++ Response 201 (application/json)
+
+           {
+               "status": 201,
+               "data": [
+                   []
+               ],
+               "task": {
+                   "code": "CancelPolicy",
+                   "id": 130662,
+                   "isSuccess": false,
+                   "isProcessing": true,
+                   "isCancelled": false,
+                   "isFatal": false,
+                   "hasError": false,
+                   "completeness": null,
+                   "currentAction": {
+                       "description": "Получение необходимых объектов"
+                   }
+               }
+           }
 
             
 ## task: подробная информация о задаче и текущем статусе выполнения [/task/{id}?key={key}]
