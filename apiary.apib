@@ -8,10 +8,10 @@ HOST: http://sandbox.cherehapa.ru/v2/
 
 Эти **обязательные** и *необязательные* параметры используются для создания полиса.
 
-- **dateStart** - дата начала поездки - дата в формате dd.mm.yyyy (22.03.2015)
-- **dateEnd** - дата окончания поездки - дата в формате dd.mm.yyyy (25.03.2015)
-- *country[]* - код или id одной или нескольких стран путешествия - массив строк или массив чисел (количество не ограниченно)
-- *countryGroup[]* - код или id группы стран - массив строк или массив чисел (schengen, asia)
+- **dateStart** - дата начала поездки - дата в формате dd.mm.yyyy (22.03.2017)
+- **dateEnd** - дата окончания поездки - дата в формате dd.mm.yyyy (25.03.2017)
+- *country[]* - код одной или нескольких стран путешествия - массив строк или массив чисел (количество не ограниченно)
+- *countryGroup[]* - код группы стран - массив строк или массив чисел (schengen, asia)
 - *sport[]* - коды видов спортивной активности - массив строк или массив чисел (surfing, divingCompetition)
 - **insuranceProduct[]** - массив кодов страховых продуктов - число или массив чисел (1, 57)
 - **service[<код услуги>]** - коды и значения страховых сумм по выбранным услугам - число (service[medicine]=30000, service[legal]=1)
@@ -36,27 +36,28 @@ HOST: http://sandbox.cherehapa.ru/v2/
 
 Расчёт стоимости страховых продуктов. Для расчета стоимости страховых продуктов необходимо отправить следующие GET-запросы:
 
-## quote: стоимость всех продуктов, рассчитанные по данным в запросе [/quote?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&key={key}]
+## quote: стоимость всех продуктов, рассчитанные по данным в запросе [/quote?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&tourist%5B{tourist_id}%5D%5Bbirthday%5D={tourist_birthday}&key={key}]
 
 + Parameters
-    + dateStart: `24.12.2015` (required, string)  - дата начала поездки (dd.mm.yyyy)
-    + dateEnd: `25.12.2015` (required, string) - дата окончания поездки (dd.mm.yyyy)
+    + dateStart: `24.12.2017` (required, string)  - дата начала поездки (dd.mm.yyyy)
+    + dateEnd: `25.12.2017` (required, string) - дата окончания поездки (dd.mm.yyyy)
     + insuredDays: 1 (optional, number) - кол-во дней по страховке (число)
-    + currency: `eur` (optional, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
-    + country: `italy` (required, string) - код или id одной или нескольких стран путешествия (количество не ограниченно)
-    + service_medicine: `30000` (optional, string) - коды и значения страховых сумм по выбранным услугам
+    + currency: `eur` (required, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
+    + country: `italy` (required, string) - код одной или нескольких стран путешествия (количество не ограниченно)
+    + service_medicine: `30000` (required, string) - коды и значения страховых сумм по выбранным услугам
     + service_aviaCargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + service_urgentStomatology: `1` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + service_accinent: `0` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + service_civilLiability: `0` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + service_cargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + tourist_id: `0` (required, string) - массив данных о туристе с указанным id (начинается с 0)
-    + tourist_age: `32` (optional, string) - возраст туриста (можно указывать, когда не известна точная дата рождения)
+    + tourist_birthday: `01.01.1980` (required, string) - дата рождения туриста с указанным ранее ID в формате dd.mm.yyyy
+    + tourist_age: `36` (optional, string) - возраст туриста с указанным ранее ID (можно указывать, когда не известна точная дата рождения)
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
 
 ### Метод: GET /quote [GET]
 
-Выводится стоимость всех продуктов, рассчитанные по данным в запросе. Для полного понимания в качества примера дается весь вывод по запросу.
+Выводится стоимость всех **продуктов**, рассчитанные по данным (в примере на данный момент указан минимально необходимый набор данных) в запросе. Сам по себе массив *tourist* является обязательным, и достаточным для работы будет или дата рождения, или возраст то есть или **tourist[0][birthday]=dd.mm.yyyy** или **tourist[0][age]=xx** тоже самое для остальных туристов, для второго будет **tourist[1][age]**, при этом можно у одного туриста писать дату у второго возраст, то есть не принципиально что, главное чтобы или то или то, условно обязательно что-то из двух. Все остальные поля туриста не влияют на расчет но могут присутствовать, например у туриста могут быть заполнены поля **firstName** и/или **lastName** и/или **hidden**. **Важный момент** связанный с **insuredDays**, он не обязательный, но если он есть то расчет будет идти по количеству дней указанных в этом значении, то есть **dateStart** и **dateEnd** являются обязательными, без них расчета вообще не будет, но количество дней берется либо как разность дат, если **insuredDays** не передан, либо как **insuredDays** если передан не зависимо от дат. Для полного понимания в качества примера дается весь вывод по запросу.
 
 + Response 200 (application/json)
 
@@ -1414,11 +1415,11 @@ HOST: http://sandbox.cherehapa.ru/v2/
 
 + Parameters
     + id: 39 (optional, number) - id продукта (например - 39)
-    + dateStart: `24.12.2015` (required, string)  - дата начала поездки (dd.mm.yyyy)
-    + dateEnd: `25.12.2015` (required, string) - дата окончания поездки (dd.mm.yyyy)
+    + dateStart: `24.12.2017` (required, string)  - дата начала поездки (dd.mm.yyyy)
+    + dateEnd: `25.12.2017` (required, string) - дата окончания поездки (dd.mm.yyyy)
     + insuredDays: 1 (optional, number) - кол-во дней по страховке (число)
-    + currency: `eur` (optional, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
-    + country: `italy` (required, string) - код или id одной или нескольких стран путешествия (количество не ограниченно)
+    + currency: `eur` (required, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
+    + country: `italy` (required, string) - код одной или нескольких стран путешествия (количество не ограниченно)
     + service_medicine: `30000` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + service_aviaCargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + service_urgentStomatology: `1` (optional, string) - коды и значения страховых сумм по выбранным услугам
@@ -1583,11 +1584,11 @@ HOST: http://sandbox.cherehapa.ru/v2/
 ## policy: создание нового полиса [/policy?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5BfirstName%5D={tourist_firstName}&tourist%5B{tourist_id}%5D%5BlastName%5D={tourist_lastName}&tourist%5B{tourist_id}%5D%5Bhidden%5D={tourist_hidden}&tourist%5B{tourist_id}%5D%5Bbirthday%5D={tourist_birthday}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&insurer%5Bname%5D={insurer_name}&insurer%5BlastName%5D={insurer_lastName}&insurer%5BsecondName%5D={insurer_secondName}&insurer%5BnameRU%5D={insurer_nameRU}&insurer%5BlastNameRU%5D={insurer_lastNameRU}&insurer%5BsecondNameRU%5D={insurer_secondNameRU}&insurer%5Bphone%5D={insurer_phone}&insurer%5Bemail%5D={insurer_email}&insuranceProduct%5B%5D={insuranceProduct}&paymentSystem={paymentSystem}&card%5Bnumber%5D={card_number}&card%5Bmonth%5D={card_month}&card%5Byear%5D={card_year}&card%5Bcvc%5D={card_cvc}&card%5Bholder%5D={card_holder}&key={key}&marker={marker}&partnerId={partnerId}&userId={userId}&coupon={coupon}&_method=post]
 
 + Parameters
-    + dateStart: `24.12.2015` (required, string)  - дата начала поездки (dd.mm.yyyy)
-    + dateEnd: `25.12.2015` (required, string) - дата окончания поездки (dd.mm.yyyy)
+    + dateStart: `24.12.2017` (required, string)  - дата начала поездки (dd.mm.yyyy)
+    + dateEnd: `25.12.2017` (required, string) - дата окончания поездки (dd.mm.yyyy)
     + insuredDays: 1 (optional, number) - кол-во дней по страховке (число)
-    + currency: `eur` (optional, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
-    + country: `italy` (required, string) - код или id одной или нескольких стран путешествия (количество не ограниченно)
+    + currency: `eur` (required, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
+    + country: `italy` (required, string) - код одной или нескольких стран путешествия (количество не ограниченно)
     + service_medicine: `30000` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + service_aviaCargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + service_urgentStomatology: `1` (optional, string) - коды и значения страховых сумм по выбранным услугам
