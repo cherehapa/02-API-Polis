@@ -4,14 +4,13 @@ HOST: http://sandbox.cherehapa.ru/v2/
 # API проекта "Черехапа Страхование" v2.0 - Расчет и выписка полиса
 
 ## Параметры для создания полиса
-При расчете полиса автоматически создается запрос (request), который можно использовать в дальнейшем для выписки страхового полиса. Если есть id запроса, то достаточно передать его параметром requestId вместо всех условий запроса. Если при формировании запроса на расчет не были указаны данные туристов, то их лучше передать вместе с requestId - в этом случае запрос в БД будет обновлен данными из HTTP-запроса.
+При расчете полиса запрос **request** более не создается. При выполнении расчета только расчет, и выписать используя для этого requestId более нельзя, ибо его не будет в ответе. Только через параметры для выписки полиса! Мы более не храним состояние между расчетом и выпиской, делая эти операции атомарными и не зависимыми. 
 
-Эти **обязательные** и *необязательные* параметры используются для создания полиса.
+Эти **обязательные** и *необязательные* параметры. **ВАЖНО** обязательные и допустимые параметры разнятся, для каждого метода - где это необходимо будет специально описано, какие параметры обязательные, а какие допустимые.
 
 - **dateStart** - дата начала поездки - дата в формате dd.mm.yyyy (22.03.2017)
 - **dateEnd** - дата окончания поездки - дата в формате dd.mm.yyyy (25.03.2017)
-- *country[]* - код одной или нескольких стран путешествия - массив строк или массив чисел (количество не ограниченно)
-- *countryGroup[]* - код группы стран - массив строк или массив чисел (schengen, asia)
+- **country[]** - код одной или нескольких стран путешествия - массив строк или массив чисел (количество не ограниченно)
 - *sport[]* - коды видов спортивной активности - массив строк или массив чисел (surfing, divingCompetition)
 - **insuranceProduct[]** - массив кодов страховых продуктов - число или массив чисел (1, 57)
 - **service[<код услуги>]** - коды и значения страховых сумм по выбранным услугам - число (service[medicine]=30000, service[legal]=1)
@@ -24,9 +23,9 @@ HOST: http://sandbox.cherehapa.ru/v2/
 - **tourist[#][firstName]** - имя туриста - строка (Alexander)
 - **tourist[#][lastName]** - фамилия туриста - строка (Pavlov)
 - **tourist[#][birthday]** - дата рождения туриста - дата в формате dd.mm.yyyy (31.12.1982)
-- *tourist[#][age]* - возраст туриста - число (можно указывать, когда не известна точная дата рождения)
+- *tourist[#][age]* - возраст туриста - число (можно указывать, когда не известна точная дата рождения), используется только при расчете полиса.
 - *paymentSystem* - код платежной системы - число (для безналичной оплаты paymentSystem=8)
-- **currency** - код валюты страхования - строка (USD, EUR, RUB, по-умолчанию - USD)
+- **currency** - код валюты страхования - строка (USD, EUR, по-умолчанию - USD)
 - *card* - массив данных о банковской карте пользователя - строка (нужен только в том случае, когда выбрана соответствующая платежная система).
 - *card[number]* - номер банковской карты - строка (4111111111111111)
 - *card[cvc]* - код безопасности карты - число (123)
@@ -34,7 +33,7 @@ HOST: http://sandbox.cherehapa.ru/v2/
 - *card[year]* - год окончания срока действия карты - число (18)
 - *card[holder]* - фамилия и имя держателя карты - строка (Alexander Pavlov)
 
-Расчёт стоимости страховых продуктов. Для расчета стоимости страховых продуктов необходимо отправить следующие GET-запросы:
+И у QUOTE, и у POLICY есть разделение, на создание полиса по страховым продуктам и по страховым пакетам, основной отличительный признак в том что в продуктах это с *insuranceProduct*, а в пакетах *insurancePackage*. Потому для каждого метода будут даны примеры 2-х запросов, с учетом этой особенности.
 
 ## quote: стоимость всех продуктов, рассчитанные по данным в запросе [/quote?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&tourist%5B{tourist_id}%5D%5Bbirthday%5D={tourist_birthday}&sport%5B{sport}%5D&key={key}]
 
@@ -1582,13 +1581,13 @@ HOST: http://sandbox.cherehapa.ru/v2/
           }
         }
             
-## policy: создание нового полиса [/policy?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5BfirstName%5D={tourist_firstName}&tourist%5B{tourist_id}%5D%5BlastName%5D={tourist_lastName}&tourist%5B{tourist_id}%5D%5Bhidden%5D={tourist_hidden}&tourist%5B{tourist_id}%5D%5Bbirthday%5D={tourist_birthday}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&insurer%5Bname%5D={insurer_name}&insurer%5BlastName%5D={insurer_lastName}&insurer%5BsecondName%5D={insurer_secondName}&insurer%5BnameRU%5D={insurer_nameRU}&insurer%5BlastNameRU%5D={insurer_lastNameRU}&insurer%5BsecondNameRU%5D={insurer_secondNameRU}&insurer%5Bphone%5D={insurer_phone}&insurer%5Bemail%5D={insurer_email}&insuranceProduct%5B%5D={insuranceProduct}&paymentSystem={paymentSystem}&card%5Bnumber%5D={card_number}&card%5Bmonth%5D={card_month}&card%5Byear%5D={card_year}&card%5Bcvc%5D={card_cvc}&card%5Bholder%5D={card_holder}&key={key}&marker={marker}&partnerId={partnerId}&userId={userId}&coupon={coupon}&_method=post]
+## policy: создание нового полиса по продуктам insuranceProduct [/policy?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5BfirstName%5D={tourist_firstName}&tourist%5B{tourist_id}%5D%5BlastName%5D={tourist_lastName}&tourist%5B{tourist_id}%5D%5Bhidden%5D={tourist_hidden}&tourist%5B{tourist_id}%5D%5Bbirthday%5D={tourist_birthday}&insurer%5Bname%5D={insurer_name}&insurer%5BlastName%5D={insurer_lastName}&insurer%5BsecondName%5D={insurer_secondName}&insurer%5BnameRU%5D={insurer_nameRU}&insurer%5BlastNameRU%5D={insurer_lastNameRU}&insurer%5BsecondNameRU%5D={insurer_secondNameRU}&insurer%5Bphone%5D={insurer_phone}&insurer%5Bemail%5D={insurer_email}&insuranceProduct%5B%5D={insuranceProduct}&paymentSystem={paymentSystem}&card%5Bnumber%5D={card_number}&card%5Bmonth%5D={card_month}&card%5Byear%5D={card_year}&card%5Bcvc%5D={card_cvc}&card%5Bholder%5D={card_holder}&sport%5B{sport}%5D&key={key}&marker={marker}&partnerId={partnerId}&coupon={coupon}&_method=post]
 
 + Parameters
     + dateStart: `24.12.2017` (required, string)  - дата начала поездки (dd.mm.yyyy)
     + dateEnd: `25.12.2017` (required, string) - дата окончания поездки (dd.mm.yyyy)
     + insuredDays: 1 (optional, number) - кол-во дней по страховке (число)
-    + currency: `eur` (required, string) - код валюты страхования (USD, EUR, RUB, по-умолчанию - USD)
+    + currency: `eur` (required, string) - код валюты страхования (USD, EUR)
     + country: `italy` (required, string) - код одной или нескольких стран путешествия (количество не ограниченно)
     + service_medicine: `30000` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + service_aviaCargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
@@ -1600,22 +1599,21 @@ HOST: http://sandbox.cherehapa.ru/v2/
     + tourist_lastName: `Bzhezinskiy` (required, string) - фамилия туриста ЛАТИНИЦЕЙ
     + tourist_firstName: `Torvlandor` (required, string) - имя туриста ЛАТИНИЦЕЙ
     + tourist_birthday: `24.12.1983` (required, string)  - дата рождения туриста (dd.mm.yyyy)
-    + tourist_age: `32` (optional, string) - возраст туриста (можно указывать, когда не известна точная дата рождения)
     + tourist_hidden:  `0` (required, string) - скрыть ли информацию о туристе из личного кабинета покупателя (1=да, 0=нет)
-    + insurer_phone: `79261234567` (optional, string) телефон страхователя в международном формате, без + (то есть 79261234567)
+    + insurer_phone: `79261234567` (required, string) телефон страхователя в международном формате, без + (то есть 79261234567)
     + insurer_email: `torvlandor@mailinator.com` (required, string) - e-mail страхователя (например torvlandor@mailinator.com)
-    + insurer_name: `Torvlandor`  (optional, string)  - имя страхователя ЛАТИНИЦЕЙ, если не турист (например Torvlandor)
-    + insurer_secondName: `Alexandrovich`  (optional, string)  - отчество страхователя ЛАТИНИЦЕЙ, если не турист (например Alexandrovich)
-    + insurer_lastName: `Bzhezinskiy`  (optional, string) - фамилия страхователя ЛАТИНИЦЕЙ, если не турист (например Bzhezinskiy)
-    + insurer_nameRU: `Торвландор` (required, string) - имя страхователя КИРИЛЛИЦЕЙ 
+    + insurer_name: `Torvlandor`  (required, string)  - имя страхователя ЛАТИНИЦЕЙ (например Torvlandor)
+    + insurer_secondName: `Alexandrovich`  (optional, string)  - отчество страхователя ЛАТИНИЦЕЙ (например Alexandrovich)
+    + insurer_lastName: `Bzhezinskiy`  (required, string) - фамилия страхователя ЛАТИНИЦЕЙ (например Bzhezinskiy)
+    + insurer_nameRU: `required` (required, string) - имя страхователя КИРИЛЛИЦЕЙ 
     + insurer_secondNameRU: `Бимульдинович` (required, string) - отчество страхователя КИРИЛЛИЦЕЙ 
     + insurer_lastNameRU: `Бжезинский` (required, string) - отчество страхователя КИРИЛЛИЦЕЙ 
     + insuranceProduct: `9` (required, string) - массив кодов страховых продуктов (1, 57)
     + paymentSystem: `7` (optional, string) - код платежной системы (для безналичной оплаты paymentSystem=7)
+    + sport: `waterAerobics` (optional, string) - этот параметр  sport[]=xxx, не обязательный, где xxx это значение code если брать справочник по спорту через API, в запросе может быть указано несколько кодов спорта. Например: waterAerobics, motorcycle.
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
-    + marker: `123qwe` (required, string) - маркер партнера, это произвольная строка, которая потом будет привязана к заказу и появится в отчете о продажах. Может использоваться для статистических целей, субаффилиатских прогамм, аналитики
-    + partnerId: `1` (optional, string) - код партнера, на который будет записана продажа. обычно он определяется по ключу, но иногда бывает необходимость задать отдельно
-    + userId: `0` (required, string)
+    + marker: `123qwe` (required, string) - маркер партнера, это произвольная строка.
+    + partnerId: `1` (required, string) - код партнера, на который будет записана продажа. обычно он определяется по ключу, но иногда бывает необходимость задать отдельно.
     + coupon: `CHE-123XYZ` (optional, string) - купон на скидку, если есть
     + card_number: `4111111111111111` (required, string) - номер банковской карты
     + card_cvc: `123` (required, string) - код безопасности карты
@@ -1623,9 +1621,48 @@ HOST: http://sandbox.cherehapa.ru/v2/
     + card_year: `18` (required, string) - год окончания срока действия карты (2 последние цифры)
     + card_holder: `Torvlandor+Bzhezinskiy` (required, string) - фамилия и имя держателя карты (в формате Name+LastName)
 
-### Метод: POST /policy [POST]
+### Метод по продуктам insuranceProduct: POST /policy [POST]
 
-Создается новый полис по данным в запросе.
+Создается новый полис по продуктам (insuranceProduct). Необходимо помнить, что запросы с включением спорта надо осуществлять в таком виде: **sport[]=waterAerobics&sport[]=motorcycle**. Вот перечень **обязательные** и *необязательные* параметры, для этого метода с учетом выписки по пакетам.
+
+- **dateStart** - дата начала поездки - дата в формате dd.mm.yyyy (22.03.2017)
+- **dateEnd** - дата окончания поездки - дата в формате dd.mm.yyyy (25.03.2017)
+- **country[]** - код одной или нескольких стран путешествия, то есть обязательное наличие хотя бы одной страны (country[]=xxx), массив строк или массив чисел (количество не ограниченно)
+- *sport[]* - коды видов спортивной активности - массив строк или массив чисел (surfing, divingCompetition)
+- **currency** - код валюты страхования, более нет никаких значений по умолчанию, если не передать валюту будет ошибка валидации, или EUR или USD, допускается также в нижнем регистре - строка (USD, EUR)
+- **insuranceProduct[]** - массив кодов страховых продуктов, при этом может передаваться как одним значением insuranceProduct=159, так и массивом insuranceProduct[]=159, возможны, но редки варианты с несколькими продуктами, тогда на одни и теже данные будут выписаны разные полисы (разных компаний) в зависимости от переданных продуктов, то есть к примеру insuranceProduct[]=159&insuranceProduct[]=260 - число или массив чисел (159, 260)
+- **service[<код услуги>]** - коды и значения страховых сумм по выбранным услугам, то есть обязательное наличие хотя бы одного сервиса (service[xxx]=yyy) - число (service[medicine]=30000, service[legal]=1)
+- **tourist[]** - массив данных о туристах - строка
+- **tourist[#][firstName]** - имя туриста - строка (Alexander)
+- **tourist[#][lastName]** - фамилия туриста - строка (Pavlov)
+- **tourist[#][birthday]** - дата рождения туриста, в отличии от quote **только дата рождения, возраст не сработает** - дата в формате dd.mm.yyyy (31.12.1982)
+- **paymentSystem** - платежная система, пример paymentSystem=7, должно быть числом, а также должна быть доступна партнеру по ключу, в данном случае 7 это оплата картой.
+- **insurer[]** - покупатель, является обязательным, представляет собой массив из следующих обязательных значений:
+- **insurer[name]**  или **insurer[nameRU]**  имя, в зависимости от страховой, одни требуют русские поля другие латинские, поэтому валидация может ругаться на отсутствие необходимого ей поля (Alexander)
+- **insurer[lastName]** или **insurer[lastNameRU]**, фамилия аналогично имени (Pavlov)
+- **insurer[secondNameRU]** отчество обязательно только у страховых с требованиями к отчеству русскими буквами
+- **insurer[email]** - электронная почта страхователя - строка (test@test.com)
+- *insurer[phone]* - телефон страхователя в международном формате, без "+", для Ренесанс обязателен номер телефона - строка (79264240454)
+
+
+Также есть не обязательный tourist[0][hidden], это больше для интерфейса актуально, но если установлен в 1 то турист не будет привязан к покупателю и не будет отображаться в его личном кабинете на сайте, если в 0 то будет, по умолчанию 0.
+Всё более никаких данных по туристу передавать не нужно, передача туриста по id требует более широкое апи, например создание туриста и тд. Поэтому передача по id закрыта.
+
+
+Если выбрана платежная система Payture (paymentSystem=7) то обязательными становятся данные карты:
+
+- *card* - массив данных о банковской карте пользователя - строка (нужен только в том случае, когда выбрана соответствующая платежная система).
+- *card[number]* - номер банковской карты - строка (4111111111111111)
+- *card[cvc]* - код безопасности карты - число (123)
+- *card[month]* - месяц окончания срока действия карты - число (12)
+- *card[year]* - год окончания срока действия карты - число (18)
+- *card[holder]* - фамилия и имя держателя карты - строка (Alexander Pavlov)
+
+в противном случае эти поля не учитываются.
+
+- **partnerId** - идентификатор партнера если он не указан, то идентификатор партнера определяется по ключу, но если указан то используется вне зависимости от ключа, Например как это происходит при покупке через интерфейс, ключ доступа к апи там наш, partnerId которого равен 1, поэтому используется явная передача партнера partnerId. Для уверенности прикрепления полиса за партнером - это поле обязательно.
+- *marker* - маркер партнера, это произвольная строка, для личных целей партнера или для аналитики. Может использоваться для статистических целей, субаффилиатских програм и т.д.
+- *coupon* - купон на скидку.
 
 + Response 201 (application/json)
 
@@ -1646,7 +1683,8 @@ HOST: http://sandbox.cherehapa.ru/v2/
                                       }
                    }
            }
-            
+          
+ 
 ## policy: отмена выписанного ранее полиса [/policy/{id}?key={key}&_method=delete]
 
 + Parameters
