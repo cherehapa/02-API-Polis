@@ -25,7 +25,7 @@ HOST: http://sandbox.cherehapa.ru/v2/
 - **tourist[#][birthday]** - дата рождения туриста - дата в формате dd.mm.yyyy (31.12.1982)
 - *tourist[#][age]* - возраст туриста - число (можно указывать, когда не известна точная дата рождения), используется только при расчете полиса.
 - *paymentSystem* - код платежной системы - число (для безналичной оплаты paymentSystem=8)
-- **currency** - код валюты страхования - строка (USD, EUR, по-умолчанию - USD)
+- **currency** - код валюты страхования - строка (USD, EUR)
 - *card* - массив данных о банковской карте пользователя - строка (нужен только в том случае, когда выбрана соответствующая платежная система).
 - *card[number]* - номер банковской карты - строка (4111111111111111)
 - *card[cvc]* - код безопасности карты - число (123)
@@ -1411,7 +1411,7 @@ HOST: http://sandbox.cherehapa.ru/v2/
               }
             }
             
-## quote: стоимость одного продукта id, рассчитанная по данным в запросе [/quote/{id}?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&key={key}]
+## quote: стоимость одного продукта id, рассчитанная по данным в запросе [/quote/{id}?currency={currency}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&sport%5B{sport}%5D&key={key}]
 
 + Parameters
     + id: 39 (optional, number) - id продукта (например - 39)
@@ -1428,11 +1428,12 @@ HOST: http://sandbox.cherehapa.ru/v2/
     + service_cargo: `1500` (optional, string) - коды и значения страховых сумм по выбранным услугам
     + tourist_id: `0` (required, string) - массив данных о туристе с указанным id (начинается с 0)
     + tourist_age: `32` (optional, string) - возраст туриста (можно указывать, когда не известна точная дата рождения)
+    + sport: `waterAerobics` (optional, string) - этот параметр  sport[]=xxx, не обязательный, где xxx это значение code если брать справочник по спорту через API, в запросе может быть указано несколько кодов спорта. Например: waterAerobics, motorcycle.
     + key: yI99Kone4QHOuaPqmgpp7WoTmW0cDs (required, string) - Ключ доступа (служит для авторизации, при изменении перестает работать)
 
 ### Метод: GET /quote/id [GET]
 
-Выводится стоимость одного продукта id, рассчитанная по данным в запросе. Если на запрос выдается ошибка 500: Ошибка стороннего API: "The insurance sub products for calc not found", то необходимо увеличить срок поездки или указать большее число дней, так же попробовать использовать более удаленные от текущего момента даты поездки.
+Выводится стоимость **одного продукта** id, рассчитанная по данным (в примере на данный момент указан минимально необходимый набор данных) в запросе. Сам по себе массив *tourist* является обязательным, и достаточным для работы будет или дата рождения, или возраст то есть или **tourist[0][birthday]=dd.mm.yyyy** или **tourist[0][age]=xx** тоже самое для остальных туристов, для второго будет **tourist[1][age]**, при этом можно у одного туриста писать дату у второго возраст, то есть не принципиально что, главное чтобы или то или то, условно обязательно что-то из двух. Все остальные поля туриста не влияют на расчет но могут присутствовать, например у туриста могут быть заполнены поля **firstName** и/или **lastName** и/или **hidden**. **Важный момент** связанный с **insuredDays**, он не обязательный, но если он есть то расчет будет идти по количеству дней указанных в этом значении, то есть **dateStart** и **dateEnd** являются обязательными, без них расчета вообще не будет, но количество дней берется либо как разность дат, если **insuredDays** не передан, либо как **insuredDays** если передан не зависимо от дат. Необходимо помнить, что запросы с включением спорта надо осуществлять в таком виде: **sport[]=waterAerobics&sport[]=motorcycle**. Для полного понимания в качества примера дается весь вывод по запросу. Если на запрос выдается ошибка 500: Ошибка стороннего API: "The insurance sub products for calc not found", то необходимо увеличить срок поездки или указать большее число дней, так же попробовать использовать более удаленные от текущего момента даты поездки.
 
 + Response 200 (application/json)
 
