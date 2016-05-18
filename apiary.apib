@@ -58,6 +58,9 @@ HOST: http://sandbox.cherehapa.ru/v2/
 ### Метод: GET /quote [GET]
 
 Выводится стоимость всех **продуктов**, рассчитанные по данным (в примере на данный момент указан минимально необходимый набор данных) в запросе. Сам по себе массив *tourist* является обязательным, и достаточным для работы будет или дата рождения, или возраст то есть или **tourist[0][birthday]=dd.mm.yyyy** или **tourist[0][age]=xx** тоже самое для остальных туристов, для второго будет **tourist[1][age]**, при этом можно у одного туриста писать дату у второго возраст, то есть не принципиально что, главное чтобы или то или то, условно обязательно что-то из двух. Все остальные поля туриста не влияют на расчет но могут присутствовать, например у туриста могут быть заполнены поля **firstName** и/или **lastName** и/или **hidden**. **Важный момент** связанный с **insuredDays**, он не обязательный, но если он есть то расчет будет идти по количеству дней указанных в этом значении, то есть **dateStart** и **dateEnd** являются обязательными, без них расчета вообще не будет, но количество дней берется либо как разность дат, если **insuredDays** не передан, либо как **insuredDays** если передан не зависимо от дат. Необходимо помнить, что запросы с включением спорта надо осуществлять в таком виде: **sport[]=waterAerobics&sport[]=motorcycle**. Для полного понимания в качества примера дается весь вывод по запросу.
+FIXME: serviceId должен быть числом, а не строкой, как поправят БД (сейчас часть вывода строки с числами) - надо поправить схему, которая пока-что адаптирована под имеющийся баг чтобы не падали тесты.
+FIXME: также объект InfoPerTourist будет усечен - останется только итог - по такому-то туристу такой-то результат, в публичную выдачу детали не нужны, после чего additionalProperties можно будет выставить в схеме в false для perTourist
+FIXME: Описание схемы ещё не завершено (dredd дает ошибки при проверках данных).
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1410,6 +1413,186 @@ HOST: http://sandbox.cherehapa.ru/v2/
                 "id": 2081
               }
             }
+
+    + Schema
+
+            { "type":"object",
+              "required":["status","data"],
+              "additionalProperties":false,
+              "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+                            "data":{"type":"array","minitems":1,
+                                    "items":{"type":"object",
+                                             "required":["productId","companyId","insuranceSubProductId","territory",
+                                                         "insuredDays","services","sport","currency","price","priceRub",
+                                                         "InfoPerTourist","assistances","matchRating","matchRatingPerCompany",
+                                                         "serviceProduct","matchDetails","info"],
+                                             "additionalProperties": true,
+                                             "properties":{"ProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                           "companyId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                           "insuranceSubProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                           "territory":{"type":"object",
+                                                                        "required":["id","code","countryGroup"],
+                                                                        "additionalProperties":false,
+                                                                        "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                                                      "code":{"type":"string"},
+                                                                                      "countryGroup":{"type":"array",
+                                                                                                      "minitems":1,
+                                                                                                      "items":{"type":"string"}
+                                                                                                     }
+                                                                                     }
+                                                                       },
+                                                           "insuredDays":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                           "services":{"type":"array","minitems":1,
+                                                                       "items":{"type":"object",
+                                                                                "required":["result","serviceId"],
+                                                                                "additionalProperties":true,
+                                                                                "properties":{"result":{"type":"number"},
+                                                                                              "serviceId":{"type":"number","minimum":1,"exclusiveMinimum":false}
+                                                                                             }
+                                                                               }
+                                                                      },
+                                                           "sport":{"type":"object",
+                                                                    "required":["id","code"],
+                                                                    "additionalProperties":false,
+                                                                    "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                                                  "code":{"type":"string"}
+                                                                                 }
+                                                                   },
+                                                           "currency":{"type":"string"},
+                                                           "price":{"type":"number"},
+                                                           "priceRub":{"type":"number"},
+                                                           "InfoPerTourist":{"type":"array","minitems":1,
+                                                                             "items":{"type":"object",
+                                                                                      "required":["birthday","age","perTourist","resultPerTourist"],
+                                                                                      "properties":{"birthday":{"type":"string","pattern":"[0-9]{2}.[0-9]{2}.[0-9]{4}"},
+                                                                                                    "age":{"type":"number","minimum":1,"exclusiveMinimum":false,"maximum":300,"exclusiveMaximum":false},
+                                                                                                    "perTourist":{"type":"array","minitems":1,
+                                                                                                                  "items":{"type":"object",
+                                                                                                                           "required":["result","serviceId"],
+                                                                                                                            "additionalProperties":true,
+                                                                                                                            "properties":{"result":{"type":"number"},
+                                                                                                                                          "serviceId":{"anyOf":[{"type":"number"},{"type":"string"}]}
+                                                                                                                                         }
+                                                                                                                          }
+                                                                                                                 },
+                                                                                                    "resultPerTourist":{"type":"number"}
+                                                                                                   }
+                                                                                     }
+                                                                            },
+                                                           "assistances":{"type":"array","minitems":1,
+                                                                          "items":{"type":"object",
+                                                                                   "required":["string"],
+                                                                                   "additionalProperties": false,
+                                                                                   "properties":{"string":{"type":"array","minitems":1,
+                                                                                                           "items":{"type":"object",
+                                                                                                                    "required":["id","code","name","phone"],
+                                                                                                                    "additionalProperties":true,
+                                                                                                                    "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                                                                                                  "code":{"type":"string"},
+                                                                                                                                  "name":{"type":"string"},
+                                                                                                                                  "phone":{"anyOf":[{"type":"array","minitems":1,
+                                                                                                                                                     "items":{"type":"string","pattern":"[0-9]"}
+                                                                                                                                                    },
+                                                                                                                                                    {"type":"null"}
+                                                                                                                                                   ]
+                                                                                                                                           },
+                                                                                                                                   "localPhone":{"type":"array","minitems":1,
+                                                                                                                                                 "items":{"type":"string","pattern":"[0-9]"}
+                                                                                                                                                }
+                                                                                                                                 }
+                                                                                                                   }
+                                                                                                          }
+                                                                                                }
+                                                                                  }
+                                                                         },
+                                                           "matchRating":{"type":"number"},
+                                                           "matchRatingPerCompany":{"type":"number"},
+                                                           "serviceProduct":{"type":"object",
+                                                                             "required":["medicine","ambulatoryCare","doctorCall","hospitalTreatment","doctorTransportation",
+                                                                                         "abroadTransportation","drugRefund","deathRepatriation","phoneRefund","urgentStomatology",
+                                                                                          "insuredReturn","insuredEscortReturn","childrenReturn","relativeIllReturn",
+                                                                                          "thirdPartyTransportation","multipolicy","work","terrorAssistance","disasterAssistance",
+                                                                                          "allergyArresting","sunburnAssistance","searchActivities","civilLiability",
+                                                                                          "aviaCargo","regularDelay","delayCargo","accident","foreign","dockDelay","aviaMiss",
+                                                                                          "rescueActivities","oncologyAssistance"],
+                                                                            "additionalProperties": false,
+                                                                            "properties":{"medicine":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "ambulatoryCare":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "doctorCall":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "hospitalTreatment":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "doctorTransportation":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "abroadTransportation":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "drugRefund":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "deathRepatriation":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "phoneRefund":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "urgentStomatology":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "insuredReturn":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "insuredEscortReturn":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "childrenReturn":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "relativeIllReturn":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "thirdPartyTransportation":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "multipolicy":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "work":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "terrorAssistance":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "disasterAssistance":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "allergyArresting":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "sunburnAssistance":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "searchActivities":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "civilLiability":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "aviaCargo":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "regularDelay":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "delayCargo":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "accident":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "foreign":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "dockDelay":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "aviaMiss":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "rescueActivities":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "oncologyAssistance":{"type":"number","minimum":0,"exclusiveMinimum":false}
+                                                                                         }
+                                                                            },
+                                                           "matchDetails":{"type":"object",
+                                                                           "required":["totalServices","additionalServices","missingServices","matchingServices",
+                                                                                        "higherSumms","lowerSumms","matchingSumms","expertRaiting","isLimited",
+                                                                                        "priceRating","payoutRating"
+                                                                                       ],
+                                                                           "additionalProperties": false,
+                                                                           "properties":{"totalServices":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "additionalServices":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "missingServices":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "matchingServices":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "higherSumms":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "lowerSumms":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "matchingSumms":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "expertRaiting":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "isLimited":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "priceRating":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                         "payoutRating":{"type":"number","minimum":0,"exclusiveMinimum":false}
+                                                                                        }
+                                                                          },
+                                                           "info":{"oneOf":[{"type":"object",
+                                                                             "required":["medicine"],
+                                                                             "additionalProperties":false,
+                                                                             "properties":{"medicine":{"type":"array","minitems":1,
+                                                                                                       "items":{"type":"object",
+                                                                                                                "required":["type","value"],
+                                                                                                                "additionalProperties":false,
+                                                                                                                "properties":{"type":{"type":"string"},
+                                                                                                                              "value":{"type":"number"}
+                                                                                                                             }
+                                                                                                               }
+                                                                                                      }
+                                                                                           }
+                                                                            },
+                                                                            {"type":"null"}
+                                                                           ]
+                                                                  }
+                                                          }
+
+                                                          }
+                                            }
+                                   }
+            }
+
             
 ## quote: стоимость всех пакетов, рассчитанные по данным в запросе [/quote?currency={currency}&type={type}&dateStart={dateStart}&dateEnd={dateEnd}&insuredDays={insuredDays}&country%5B%5D={country}&service%5Bmedicine%5D={service_medicine}&service%5BaviaCargo%5D={service_aviaCargo}&service%5Baccident%5D={service_accinent}&service%5BcivilLiability%5D={service_civilLiability}&service%5BurgentStomatology%5D={service_urgentStomatology}&service%5Bcargo%5D={service_cargo}&tourist%5B{tourist_id}%5D%5Bage%5D={tourist_age}&tourist%5B{tourist_id}%5D%5BfirstName%5D={tourist_firstName}&tourist%5B{tourist_id}%5D%5BlastName%5D={tourist_lastName}&tourist%5B{tourist_id}%5D%5Bhidden%5D={tourist_hidden}&tourist%5B{tourist_id}%5D%5Bbirthday%5D={tourist_birthday}&sport%5B{sport}%5D&tourist%5B{tourist_id}%5D%5BbasePrice%5D={tourist_basePrice}&key={key}]
 
