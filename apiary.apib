@@ -1447,16 +1447,25 @@ FIXME: Описание схемы ещё не завершено (dredd дае�
                                                                                 "required":["result","serviceId"],
                                                                                 "additionalProperties":true,
                                                                                 "properties":{"result":{"type":"number"},
-                                                                                              "serviceId":{"type":"number","minimum":1,"exclusiveMinimum":false}
+                                                                                              "serviceId":{"anyOf":[{"type":"number",
+                                                                                                                     "minimum":1,
+                                                                                                                     "exclusiveMinimum":false
+                                                                                                                     },
+                                                                                                                     {"type":"string"}
+                                                                                                                    ]
+                                                                                                          }
                                                                                              }
                                                                                }
                                                                       },
-                                                           "sport":{"type":"object",
-                                                                    "required":["id","code"],
-                                                                    "additionalProperties":false,
-                                                                    "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                                                  "code":{"type":"string"}
-                                                                                 }
+                                                           "sport":{"oneOf":[{"type":"object",
+                                                                              "required":["id","code"],
+                                                                              "additionalProperties":false,
+                                                                              "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                                                            "code":{"type":"string"}
+                                                                                           }
+                                                                             },
+                                                                             {"type":"null"}
+                                                                            ]
                                                                    },
                                                            "currency":{"type":"string"},
                                                            "price":{"type":"number"},
@@ -1466,12 +1475,17 @@ FIXME: Описание схемы ещё не завершено (dredd дае�
                                                                                       "required":["birthday","age","perTourist","resultPerTourist"],
                                                                                       "properties":{"birthday":{"type":"string","pattern":"[0-9]{2}.[0-9]{2}.[0-9]{4}"},
                                                                                                     "age":{"type":"number","minimum":1,"exclusiveMinimum":false,"maximum":300,"exclusiveMaximum":false},
-                                                                                                    "perTourist":{"type":"array","minitems":1,
-                                                                                                                  "items":{"type":"object",
+                                                                                                                                                                      "items":{"type":"object",
                                                                                                                            "required":["result","serviceId"],
                                                                                                                             "additionalProperties":true,
                                                                                                                             "properties":{"result":{"type":"number"},
-                                                                                                                                          "serviceId":{"anyOf":[{"type":"number"},{"type":"string"}]}
+                                                                                                                                          "serviceId":{"anyOf":[{"type":"number",
+                                                                                                                                                                 "minimum":1,
+                                                                                                                                                                 "exclusiveMinimum":false
+                                                                                                                                                                },
+                                                                                                                                                                {"type":"string"}
+                                                                                                                                                                ]
+                                                                                                                                                      }
                                                                                                                                          }
                                                                                                                           }
                                                                                                                  },
@@ -1481,9 +1495,7 @@ FIXME: Описание схемы ещё не завершено (dredd дае�
                                                                             },
                                                            "assistances":{"type":"array","minitems":1,
                                                                           "items":{"type":"object",
-                                                                                   "required":["string"],
-                                                                                   "additionalProperties": false,
-                                                                                   "properties":{"string":{"type":"array","minitems":1,
+                                                                                   "properties":{"default":{"type":"array","minitems":1,
                                                                                                            "items":{"type":"object",
                                                                                                                     "required":["id","code","name","phone"],
                                                                                                                     "additionalProperties":true,
@@ -1511,28 +1523,37 @@ FIXME: Описание схемы ещё не завершено (dredd дае�
                                                                              "required":["medicine","ambulatoryCare","doctorCall","hospitalTreatment","doctorTransportation",
                                                                                          "abroadTransportation","drugRefund","deathRepatriation","phoneRefund","urgentStomatology",
                                                                                           "insuredReturn","insuredEscortReturn","childrenReturn","relativeIllReturn",
-                                                                                          "thirdPartyTransportation","multipolicy","work","terrorAssistance","disasterAssistance",
-                                                                                          "allergyArresting","sunburnAssistance","searchActivities","civilLiability",
-                                                                                          "aviaCargo","regularDelay","delayCargo","accident","foreign","dockDelay","aviaMiss",
-                                                                                          "rescueActivities","oncologyAssistance"],
-                                                                            "additionalProperties": false,
-                                                                            "properties":{"medicine":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "thirdPartyTransportation","terrorAssistance","disasterAssistance",
+                                                                                          "allergyArresting","sunburnAssistance","searchActivities",
+                                                                                          "regularDelay","foreign","rescueActivities","oncologyAssistance"],
+                                                                            "additionalProperties":true,
+                                                                            "properties":{"default":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "medicine":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "ambulatoryCare":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "doctorCall":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "hospitalTreatment":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "doctorTransportation":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "abroadTransportation":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "alcoholAssistance":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "auto":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "drugRefund":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "document":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "deathRepatriation":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "phoneRefund":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "pregnancy":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "urgentStomatology":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "insuredReturn":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "insuredEscortReturn":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "insuredLiving":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "insuredEscortLiving":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "insurerTemporaryReturn":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "chronicArresting":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "childrenReturn":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "relativeIllReturn":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "thirdPartyTransportation":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "multipolicy":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "work":{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                          "legal":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "terrorAssistance":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "disasterAssistance":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                                                           "allergyArresting":{"type":"number","minimum":0,"exclusiveMinimum":false},
