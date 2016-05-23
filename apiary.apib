@@ -7064,95 +7064,69 @@ FIXME: схема почти такая же ка и для /quote, так чт�
 
         {
         "status": 200,
-        "request": {
-        "id": 69,
-        "insurerId": 26908,
-        "dateStart": "22.04.2016",
-        "dateEnd": "28.04.2016",
-        "dateVisa": null,
-        "insuredDays": 7,
-        "currencyId": "EUR",
-        "source": null,
-        "url": null,
-        "dateCreated": "13.04.2016",
-        "dateUpdated": "13.04.2016"
-        },
-        "tourist": [
-        {
-        "id": 74161,
-        "birthday": "01.01.1977",
-        "firstName": "Test",
-        "lastName": "Test",
-        "secondName": null,
-        "hidden": 1,
-        "age": 39
-        }
-        ],
-        "order": {
-        "id": 5,
-        "payed": "Y",
-        "datePayed": null,
-        "canceled": "N",
-        "dateCanceled": null,
-        "statusId": "F",
-        "dateStatus": "13.04.2016 14:12:13",
-        "price": 430.09,
-        "discountValue": "0.00",
-        "dateInsert": "13.04.2016 14:12:13",
-        "dateUpdate": "13.04.2016 14:12:37",
-        "trackingNumber": null,
-        "textStatus": "paid"
-        },
-        "policy": [
-        {
-        "id": 45,
-        "code": "001-CHE-TEST-U2.000625",
-        "externalId": "FNR-130416-077",
+        "policy": {
+        "id": 66259,
+        "code": "2301159-3",
+        "externalId": "2301159-3",
         "additionalId": null,
-        "companyId": 47,
-        "file": 5,
-        "insuranceSubProductId": 885,
-        "calculationId": 5,
-        "insurerId": 26908,
-        "taskId": 25,
-        "dateCreated": "13.04.2016 14:12:12",
-        "dateConfirmed": "13.04.2016 14:12:44",
-        "dateUpdated": "13.04.2016 14:12:56",
+        "companyId": 35,
+        "file": 62385,
+        "insuranceSubProductId": 893,
+        "calculationId": 87222,
+        "insurerId": 66944,
+        "taskId": 191490,
+        "dateCreated": "07.05.2016 10:49:46",
+        "dateConfirmed": "07.05.2016 10:49:47",
+        "dateUpdated": "07.05.2016 10:49:51",
         "dateCancelled": null,
         "isArhive": 0,
-        "price": 430.09,
-        "fee": 43.01
-        }
-        ],
-        "transaction": {
-        "id": 210005,
-        "dateCreate": "13.04.2016 14:12:13",
-        "dateUpdate": "13.04.2016 14:12:37",
-        "paymentSystemId": 7,
-        "orderId": 5,
-        "partnerId": 1,
-        "type": 2,
-        "status": "success",
-        "remoteUrl": "",
-        "additionalData": null,
-        "errorCode": null,
-        "termId": "MerchantCherehapa627"
+        "price": 369,
+        "fee": 166.05
+        },
+        "file": {
+        "id": 62385,
+        "name": "2301159-3.pdf",
+        "mimeType": "application/pdf\n",
+        "size": 256526,
+        "downloadLink": "https://che-production.s3.amazonaws.com/2301159-3.pdf?AWSAccessKeyId=AKIAJB34MLD6JD5MGAJA&Expires=1464001539&Signature=EyUcPTPvZcf3h56Fn%2Ben3KmYfnA%3D"
         },
         "data": [
         {
-        "paymentTask": {
-        
+        "assistance": {
+        "all": [
+        {
+        "id": 1,
+        "isBlocked": 0,
+        "code": "smile",
+        "name": "Smile Assistance",
+        "email": "tur@smileassistance.com",
+        "url": "http://smileassistance.com/",
+        "phone": [
+        "+74959214661",
+        "+442035194494"
+        ],
+        "localPhone": [
+        null
+        ]
+        }
+        ]
         },
-        "links": {
-        "001-CHE-TEST-U2": {
-        "000625": "https://cherehapatst.s3.amazonaws.com/001-CHE-TEST-U2000625.pdf?AWSAccessKeyId=AKIAI2DDUKJRKZSY3JCA&Expires=1460546293&Signature=2t5v3vzuUcAeRX3aAm28jPlVM0s%3D"
-        }
-        }
+        "currencyPrice": 0,
+        "insuranceSubProductId": null,
+        "price": 369,
+        "sportGroupFull": null,
+        "sportGroupId": null,
+        "territoryId": null,
+        "touristInfo": null,
+        "apiCalculationId": null,
+        "apiPrice": 0,
+        "currencyApiPrice": 0,
+        "debug": ""
         }
         ],
         "task": {
-        "id": 21,
-        "code": "CreateOrderTwoStep",
+        "id": 191490,
+        "code": "CreateConfirmPolicy",
         "isSuccess": true,
         "isProcessing": false,
         "isCancelled": false,
@@ -7204,6 +7178,16 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                     "fee":{"type":"number","minimum":0,"exclusiveMinimum":true}
                                                    }
                                      },
+                            "file":{"type":"object",
+                                    "required":["id","name","mimeType","size","downloadLink"],
+                                    "additionalProperties":false,
+                                    "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                  "name":{"type":"string"},
+                                                  "mimeType":{"type":"string"},
+                                                  "size": {"type":"number","minimum":0,"exclusiveMinimum":true},
+                                                  "downloadLink":{"type":"string","format":"uri"}
+                                                 }
+                                   },
                             "data":{"type":"array","minitems":1,
                                     "items":{"type":"object",
                                              "required":["assistance","currencyPrice","insuranceSubProductId","price","sportGroupFull"
@@ -7307,74 +7291,71 @@ FIXME: схема почти такая же ка и для /quote, так чт�
 
 + Response 200 (application/json; charset=utf-8)
 
-            {
-             "status": 200,
-              "data": {
-                "assistance": {
-                  "all": [
-                    {
-                      "id": 4,
-                      "isBlocked": 0,
-                      "code": "gva",
-                      "name": "Global Voyager Assistance",
-                      "email": "info@gvassistance.com",
-                      "url": "http://www.gvassistance.com/",
-                      "phone": [
-                        "+74957750999"
-                      ]
-                    }
-                  ]
-                },
-                "currencyPrice": 0,
-                "insuranceSubProductId": null,
-                "price": 299,
-                "sportGroupFull": null,
-                "sportGroupId": null,
-                "territoryId": null,
-                "touristInfo": null,
-                "apiCalculationId": null,
-                "apiPrice": 0,
-                "currencyApiPrice": 0,
-                "debug": ""
-              },
-              "policy": {
-                "id": 917,
-                "code": "0403/FA/NI/0001/15/W600160",
-                "externalId": 15066,
-                "additionalId": null,
-                "companyId": 44,
-                "file": 866,
-                "insuranceSubProductId": 570,
-                "calculationId": 1073,
-                "insurerId": 4499,
-                "taskId": 2000,
-                "dateCreated": "22.10.2015 19:59:25",
-                "dateConfirmed": "22.10.2015 19:59:46",
-                "dateUpdated": "22.10.2015 19:59:50",
-                "dateCancelled": null,
-                "isArhive": 0,
-                "price": 299
-              },
-              "file": {
-                "id": 866,
-                "name": "0403FANI000115W600160.pdf",
-                "mimeType": "application/pdf\n",
-                "size": 540017,
-                "downloadLink": "https://cherehapatst.s3.amazonaws.com/0403FANI000115W600160.pdf?AWSAccessKeyId=AKIAI2DDUKJRKZSY3JCA&Expires=1450692218&Signature=FAwIhoNv7R64%2FCCHg9%2F8c47WyHE%3D"
-              },
-              "task": {
-                "id": 2000,
-                "code": "CreateConfirmPolicy",
-                "isSuccess": true,
-                "isProcessing": false,
-                "isCancelled": false,
-                "isFatal": false,
-                "hasError": false,
-                "completeness": "1",
-                "currentAction": false
-              }
+        {
+        "status": 200,
+        "policy": {
+          "id": 5,
+          "code": "2301159-3",
+          "externalId": "2301159-3",
+          "additionalId": null,
+          "companyId": 35,
+          "file": 62385,
+          "insuranceSubProductId": 893,
+          "calculationId": 87222,
+          "insurerId": 66944,
+          "taskId": 191490,
+          "dateCreated": "07.05.2016 10:49:46",
+          "dateConfirmed": "07.05.2016 10:49:47",
+          "dateUpdated": "07.05.2016 10:49:51",
+          "dateCancelled": null,
+          "isArhive": 0,
+          "price": 369,
+          "fee": 166.05
+         }
+        }
+
+    + Schema
+
+            { "type":"object",
+              "required":["status","policy"],
+              "additionalProperties":false,
+              "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+                            "policy":{"type":"object",
+                                      "required":["id","code","externalId","additionalId","companyId","file","insuranceSubProductId",
+                                                  "calculationId","insurerId","taskId","dateCreated","dateConfirmed","dateUpdated",
+                                                  "dateCancelled","isArhive","price","fee"
+                                                 ],
+                                      "additionalProperties":false,
+                                      "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "code":{"type":"string"},
+                                                    "externalId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "additionalId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "companyId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "file":{"type":"number"},
+                                                    "insuranceSubProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "calculationId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "insurerId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "taskId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "dateCreated":{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
+                                                    "dateConfirmed":{"anyOf":[{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
+                                                                              {"type":"null"}
+                                                                             ]
+                                                                    },
+                                                    "dateUpdated":{"anyOf":[{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
+                                                                            {"type":"null"}
+                                                                           ]
+                                                                  },
+                                                    "dateCancelled":{"anyOf":[{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
+                                                                              {"type":"null"}
+                                                                             ]
+                                                                    },
+                                                    "isArhive":{"type":"number","minimum":0,"exclusiveMinimum":false,"maximum":1,"exclusiveMaximum":false},
+                                                    "price":{"type":"number","minimum":0,"exclusiveMinimum":true},
+                                                    "fee":{"type":"number","minimum":0,"exclusiveMinimum":true}
+                                                   }
+                                     }
+                          }
             }
-            
             
 ## file: информация о файле и ссылка на загрузку [/file/{id}?key={key}]
 
@@ -7398,3 +7379,24 @@ FIXME: схема почти такая же ка и для /quote, так чт�
             "downloadLink": "https://cherehapatst.s3.amazonaws.com/0403FAII102315W600033.pdf?AWSAccessKeyId=AKIAI2DDUKJRKZSY3JCA&Expires=1450692817&Signature=LNltEY4SQ8%2BH7EOb9lZS2wKP9Kg%3D"
           }
         }
+
+    + Schema
+
+            { "type":"object",
+              "required":["status","file"],
+              "additionalProperties":false,
+              "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+                            "file":{"type":"object",
+                                    "required":["id","name","mimeType","size","downloadLink"],
+                                    "additionalProperties":false,
+                                    "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                  "name":{"type":"string"},
+                                                  "mimeType":{"type":"string"},
+                                                  "size": {"type":"number","minimum":0,"exclusiveMinimum":true},
+                                                  "downloadLink":{"type":"string","format":"uri"}
+                                                 }
+                                   }
+                           }
+            }
+
+
