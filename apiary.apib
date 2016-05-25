@@ -7328,8 +7328,16 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                       "additionalProperties":false,
                                       "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
                                                     "code":{"type":"string"},
-                                                    "externalId":{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                    "additionalId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "externalId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                                           {"type":"string"},
+                                                                           {"type":"null"}
+                                                                          ]
+                                                                 },
+                                                    "additionalId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                                             {"type":"null"}
+                                                                             ]
+
+                                                                   },
                                                     "companyId":{"type":"number","minimum":1,"exclusiveMinimum":false},
                                                     "file":{"type":"number"},
                                                     "insuranceSubProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
