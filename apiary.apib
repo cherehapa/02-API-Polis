@@ -7054,6 +7054,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
 ## task: информация по задаче и её статусе [/task/{id}?key={key}]
 
  task подробная информация о задаче и текущем статусе выполнения
+ FIXME: поправить схему когда в базе исправят везде поле task->completeness - там должна быть только строка (сейчас чтобы не падали тесты возможны и строка и число).
 
 ## Метод GET /task/id [GET]
 + Parameters
@@ -7153,7 +7154,10 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                       "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
                                                     "code":{"type":"string"},
                                                     "externalId":{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                    "additionalId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "additionalId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                                             {"type":"string"},
+                                                                             {"type":"null"}
+                                                                   }
                                                     "companyId":{"type":"number","minimum":1,"exclusiveMinimum":false},
                                                     "file":{"type":"number"},
                                                     "insuranceSubProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
@@ -7249,7 +7253,8 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                                                                                                       }
                                                                                                                         }
                                                                                                               },
-                                                                                                 "resultPerTourist":{"type":"number"}
+                                                                                                 "resultPerTourist":{"type":"number"},
+                                                                                                 "referenceValue":{"type":"number"}
                                                                                                 }
                                                                                   }
                                                                          },
@@ -7274,7 +7279,9 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                  "isCancelled":{"type":"boolean"},
                                                  "isFatal":{"type":"boolean"},
                                                  "hasError":{"type":"boolean"},
-                                                 "completeness":{"type":"string"},
+                                                 "completeness":{"anyOf":[{"type":"string"},
+                                                                          {"type":"number"}
+                                                                },
                                                  "currentAction":{"type":"boolean"}
                                                 }
                                   }
