@@ -7231,7 +7231,10 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                            "currencyPrice":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                            "insuranceSubProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
                                                            "price":{"type":"number","minimum":0,"exclusiveMinimum":true},
-                                                           "sportGroupFull":{"type":"null"},
+                                                           "sportGroupFull":{"anyOf":[{"type":"number","minimum":0,"exclusiveMinimum":false},
+                                                                                      {"type":"null"}
+                                                                                     ]
+                                                                            },
                                                            "sportGroupId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
                                                                                     {"type":"null"}
                                                                                    ]
