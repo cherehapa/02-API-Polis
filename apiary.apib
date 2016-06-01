@@ -7142,9 +7142,33 @@ FIXME: схема почти такая же ка и для /quote, так чт�
     + Schema
 
             { "type":"object",
-              "required":["status","policy","data","task"],
-              "additionalProperties":false,
+              "required":["status","data","task"],
+              "additionalProperties":true,
               "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+                            "request"{"type":"object",
+                                      "required":["id","insurerId","dateStart","dateEnd","dateVisa","insuredDays","currencyId",
+                                                  "source","url","dateCreated","dateUpdated"
+                                                 ],
+                                      "additionalProperties":false,
+                                      "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "insurerId":{"type":"number","minimum":1,"exclusiveMinimum":false}, 
+                                                    "dateStart":{"type":"string","pattern":"[0-9]{2}.[0-9]{2}.[0-9]{4}"},
+                                                    "dateEnd":{"type":"string","pattern":"[0-9]{2}.[0-9]{2}.[0-9]{4}"},
+                                                    "dateVisa":{"anyOf":[{"type":"string","pattern":"[0-9]{2}.[0-9]{2}.[0-9]{4}"},
+                                                                         {"type":"null"}
+                                                                        ]
+                                                               },
+                                                    "insuredDays":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                    "currencyId":{"type":"string"},
+                                                    "source":null, 
+                                                    "url":{"anyOf":[{"type":"string","format":"uri"},
+                                                                    {"type":"null"}
+                                                                   ]
+                                                          },
+                                                    "dateCreated":{"type":"string","pattern":"[0-9]{2}.[0-9]{2}.[0-9]{4}"},
+                                                    "dateUpdated":{"type":"string","pattern":"[0-9]{2}.[0-9]{2}.[0-9]{4}"} 
+                                                   }
+                                     },
                             "policy":{"type":"object",
                                       "required":["id","code","externalId","additionalId","companyId","file","insuranceSubProductId",
                                                   "calculationId","insurerId","taskId","dateCreated","dateConfirmed","dateUpdated",
@@ -7291,7 +7315,15 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                                           {"type":"number"}
                                                                          ]
                                                                 },
-                                                 "currentAction":{"type":"boolean"}
+                                                 "currentAction":{"anyOf":[{"type":"boolean"},
+                                                                           {"type":"object",
+                                                                            "required":["description"],
+                                                                            "additionalProperties":true,
+                                                                            "properties":{"description":{"type":"string"}
+                                                                                         }
+                                                                           }
+                                                                          ]
+                                                                 }
                                                 }
                                   }
                            }
