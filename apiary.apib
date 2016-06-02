@@ -7222,7 +7222,9 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                  }
                                    },
                             "data":{"type":"array","minitems":1,
-                                    "items":{"type":"object",
+                                    "items":{
+                                             "anyOf":[
+                                              {"type":"object",
                                              "required":["assistance","currencyPrice","insuranceSubProductId","price","sportGroupFull",
                                                          "sportGroupId","territoryId","touristInfo","apiCalculationId","apiPrice","currencyApiPrice","debug"
                                                         ],
@@ -7298,7 +7300,11 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                            "currencyApiPrice":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                            "debug":{"type":"string"}
                                                           }
-                                            }
+                                              },
+                                              {"type":"array"}
+                                                     ]
+                                             }
+
                                    },
                             "task":{"type":"object",
                                     "required":["id","code","isSuccess","isProcessing","isCancelled","isFatal","hasError","completeness","currentAction"
@@ -7328,6 +7334,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                   }
                            }
             }
+
 
 ### policy: получить информацию по полису [/policy/{id}?key={key}&_method=get]
 
