@@ -7017,6 +7017,38 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                    }
            }
           
+    + Schema
+
+            {
+             "type":"object",
+             "properties":{"status": {"type":"number","minimum":100,"maximum":600,"exclusiveMinimum": false,"exclusiveMaximum": false},
+                           "data":{"type":"array",
+                                   "minitems":1,
+                                   "items":{"type":"array"}
+                                  },
+                           "task":{"type":"object",
+                                   "required":["id","code","isSuccess","isProcessing","isCancelled","isFatal","hasError","completeness","currentAction"],
+                                   "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum": false},
+                                                 "code":{"type":"string"},
+                                                 "isSuccess":{"type":"boolean"},
+                                                 "isProcessing":{"type":"boolean"},
+                                                 "isCancelled":{"type":"boolean"},
+                                                 "isFatal":{"type":"boolean"},
+                                                 "hasError":{"type":"boolean"},
+                                                 "completeness":{"oneOf":[{"type":"string"},
+                                                                          {"type":"null"}
+                                                                         ]
+                                                                },
+                                                 "currentAction":{"type":"object",
+                                                                  "required":["description"],
+                                                                  "additionalProperties":true,
+                                                                  "properties":{"description":{"type":"string"}
+                                                                               }
+                                                                 }
+                                                }
+                                  }
+                          } 
+            }
  
 ## policy: отмена выписанного ранее полиса [/policy/{id}?key={key}&_method=delete]
 
@@ -7050,6 +7082,39 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                }
            }
 
+    + Schema
+
+            {
+             "type":"object",
+             "properties":{"status": {"type":"number","minimum":100,"maximum":600,"exclusiveMinimum": false,"exclusiveMaximum": false},
+                           "data":{"type":"array",
+                                   "minitems":1,
+                                   "items":{"type":"array"}
+                                  },
+                           "task":{"type":"object",
+                                   "required":["id","code","isSuccess","isProcessing","isCancelled","isFatal","hasError","completeness","currentAction"],
+                                   "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum": false},
+                                                 "code":{"type":"string"},
+                                                 "isSuccess":{"type":"boolean"},
+                                                 "isProcessing":{"type":"boolean"},
+                                                 "isCancelled":{"type":"boolean"},
+                                                 "isFatal":{"type":"boolean"},
+                                                 "hasError":{"type":"boolean"},
+                                                 "completeness":{"oneOf":[{"type":"string"},
+                                                                          {"type":"null"}
+                                                                         ]
+                                                                },
+                                                 "currentAction":{"type":"object",
+                                                                  "required":["description"],
+                                                                  "additionalProperties":true,
+                                                                  "properties":{"description":{"type":"string"}
+                                                                               }
+                                                                 }
+                                                }
+                                  }
+                          } 
+            }
+ 
             
 ## task: информация по задаче и её статусе [/task/{id}?key={key}]
 
