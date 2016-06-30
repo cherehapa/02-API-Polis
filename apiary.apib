@@ -7120,6 +7120,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
 
  task подробная информация о задаче и текущем статусе выполнения
  FIXME: поправить схему когда в базе исправят везде поле task->completeness - там должна быть только строка (сейчас чтобы не падали тесты возможны и строка и число).
+ Внимание - схема описана для завершенной задачи, если задача не завершена в объекте data могут отсутствовать свойства прописанные ниже как required.
 
 ## Метод GET /task/id [GET]
 + Parameters
@@ -7290,7 +7291,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                     "items":{
                                              "anyOf":[
                                               {"type":"object",
-                                             "required":["assistance","currencyPrice","insuranceSubProductId","price","sportGroupFull",
+                                             "required":["assistance","currencyPrice","insuranceSubProductId","pyyrice","sportGroupFull",
                                                          "sportGroupId","territoryId","touristInfo","apiCalculationId","apiPrice","currencyApiPrice","debug"
                                                         ],
                                              "additionalProperties":true,
@@ -7363,7 +7364,8 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                                               },
                                                            "apiPrice":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                            "currencyApiPrice":{"type":"number","minimum":0,"exclusiveMinimum":false},
-                                                           "debug":{"type":"string"}
+                                                           "debug":{"type":"string"},
+                                                           "paymentTask":{"type":"object"}
                                                           }
                                               },
                                               {"type":"array"}
@@ -7390,7 +7392,9 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                                            {"type":"object",
                                                                             "required":["description"],
                                                                             "additionalProperties":true,
-                                                                            "properties":{"description":{"type":"string"}
+                                                                            "properties":{"description":{"type":"string"},
+                                                                                          "updatable":{"type":"array"},
+                                                                                          "error":{"type":"string"}
                                                                                          }
                                                                            }
                                                                           ]
