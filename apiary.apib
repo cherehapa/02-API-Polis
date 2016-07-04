@@ -7322,9 +7322,6 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                     "items":{
                                              "anyOf":[
                                               {"type":"object",
-                                             "required":["assistance","currencyPrice","insuranceSubProductId","pyyrice","sportGroupFull",
-                                                         "sportGroupId","territoryId","touristInfo","apiCalculationId","apiPrice","currencyApiPrice","debug"
-                                                        ],
                                              "additionalProperties":true,
                                              "properties":{"assistance":{"type":"array","minitems":1,
                                                                          "items":{"type":"object",
@@ -7396,7 +7393,10 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                            "apiPrice":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                            "currencyApiPrice":{"type":"number","minimum":0,"exclusiveMinimum":false},
                                                            "debug":{"type":"string"},
-                                                           "paymentTask":{"type":"object"}
+                                                           "paymentTask":{"type":"object"},
+                                                           "links":{"type":"object",
+                                                                    "default":{"type":"string","format":"uri"}
+                                                                   }
                                                           }
                                               },
                                               {"type":"array"}
