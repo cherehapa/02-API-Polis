@@ -7134,69 +7134,93 @@ FIXME: схема почти такая же ка и для /quote, так чт�
 
         {
         "status": 200,
-        "policy": {
-        "id": 66259,
-        "code": "2301159-3",
-        "externalId": "2301159-3",
+        "request": {
+        "id": 9,
+        "insurerId": 71803,
+        "dateStart": "08.07.2016",
+        "dateEnd": "09.07.2016",
+        "dateVisa": null,
+        "insuredDays": 1,
+        "currencyId": "EUR",
+        "source": null,
+        "url": null,
+        "dateCreated": "04.07.2016",
+        "dateUpdated": "04.07.2016"
+        },
+        "tourist": [
+        {
+        "id": 3,
+        "birthday": "24.12.1983",
+        "firstName": "Touristname",
+        "lastName": "Touristfamily",
+        "secondName": null,
+        "hidden": 0,
+        "age": 32
+        }
+        ],
+        "order": {
+        "id": 4,
+        "payed": "Y",
+        "datePayed": null,
+        "canceled": "N",
+        "dateCanceled": null,
+        "statusId": "F",
+        "dateStatus": "04.07.2016 15:22:05",
+        "price": "689.20",
+        "discountValue": "0.00",
+        "dateInsert": "04.07.2016 15:22:05",
+        "dateUpdate": "04.07.2016 15:22:22",
+        "trackingNumber": "123qwe",
+        "textStatus": "paid"
+        },
+        "policy": [
+        {
+        "id": 78771,
+        "code": "CAS-HA9000466",
+        "externalId": 8419290,
         "additionalId": null,
-        "companyId": 35,
-        "file": 62385,
-        "insuranceSubProductId": 893,
-        "calculationId": 87222,
-        "insurerId": 66944,
-        "taskId": 191490,
-        "dateCreated": "07.05.2016 10:49:46",
-        "dateConfirmed": "07.05.2016 10:49:47",
-        "dateUpdated": "07.05.2016 10:49:51",
+        "companyId": 23,
+        "file": 4,
+        "insuranceSubProductId": 29,
+        "calculationId": 9,
+        "insurerId": 71803,
+        "taskId": 27,
+        "dateCreated": "04.07.2016 15:22:04",
+        "dateConfirmed": "04.07.2016 15:22:24",
+        "dateUpdated": "04.07.2016 15:22:30",
         "dateCancelled": null,
         "isArhive": 0,
-        "price": 369,
-        "fee": 166.05
-        },
-        "file": {
-        "id": 62385,
-        "name": "2301159-3.pdf",
-        "mimeType": "application/pdf\n",
-        "size": 256526,
-        "downloadLink": "https://che-production.s3.amazonaws.com/2301159-3.pdf?AWSAccessKeyId=AKIAJB34MLD6JD5MGAJA&Expires=1464001539&Signature=EyUcPTPvZcf3h56Fn%2Ben3KmYfnA%3D"
+        "price": 689.2,
+        "fee": 68.92
+        }
+        ],
+        "transaction": {
+        "id": 16070416,
+        "dateCreate": "04.07.2016 15:22:05",
+        "dateUpdate": "04.07.2016 15:22:21",
+        "paymentSystemId": 7,
+        "orderId": 4,
+        "partnerId": 1,
+        "type": 2,
+        "status": "success",
+        "remoteUrl": "",
+        "additionalData": null,
+        "errorCode": null,
+        "termId": "MerchantCherehapa627"
         },
         "data": [
         {
-        "assistance": {
-        "all": [
-        {
-        "id": 1,
-        "isBlocked": 0,
-        "code": "smile",
-        "name": "Smile Assistance",
-        "email": "tur@smileassistance.com",
-        "url": "http://smileassistance.com/",
-        "phone": [
-        "+74959214661",
-        "+442035194494"
-        ],
-        "localPhone": [
-        null
-        ]
-        }
-        ]
+        "paymentTask": {
+        
         },
-        "currencyPrice": 0,
-        "insuranceSubProductId": null,
-        "price": 369,
-        "sportGroupFull": null,
-        "sportGroupId": null,
-        "territoryId": null,
-        "touristInfo": null,
-        "apiCalculationId": null,
-        "apiPrice": 0,
-        "currencyApiPrice": 0,
-        "debug": ""
+        "links": {
+        "CAS-HA9000466": "https://cherehapatst.s3.amazonaws.com/CAS-HA9000466.pdf?AWSAccessKeyId=AKIAI2DDUKJRKZSY3JCA&Expires=1467635268&Signature=NQiaAcS63JUSuNqRGondnLwvKEA%3D"
+        }
         }
         ],
         "task": {
-        "id": 191490,
-        "code": "CreateConfirmPolicy",
+        "id": 26,
+        "code": "CreateOrderTwoStep",
         "isSuccess": true,
         "isProcessing": false,
         "isCancelled": false,
@@ -7238,47 +7262,51 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                     "dateUpdated":{"type":"string","pattern":"[0-9]{2}.[0-9]{2}.[0-9]{4}"} 
                                                    }
                                      },
-                            "policy":{"type":"object",
-                                      "required":["id","code","externalId","additionalId","companyId","file","insuranceSubProductId",
-                                                  "calculationId","insurerId","taskId","dateCreated","dateConfirmed","dateUpdated",
-                                                  "dateCancelled","isArhive","price","fee"
-                                                 ],
-                                      "additionalProperties":false,
-                                      "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                    "code":{"type":"string"},
-                                                    "externalId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                                             {"type":"string"},
-                                                                             {"type":"null"}
-                                                                            ]
-                                                                   },
-                                                    "additionalId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                                             {"type":"string"},
-                                                                             {"type":"null"}
-                                                                            ]
-                                                                   },
-                                                    "companyId":{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                    "file":{"type":"number"},
-                                                    "insuranceSubProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                    "calculationId":{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                    "insurerId":{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                    "taskId":{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                    "dateCreated":{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
-                                                    "dateConfirmed":{"anyOf":[{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
-                                                                              {"type":"null"}
-                                                                             ]
-                                                                    },
-                                                    "dateUpdated":{"anyOf":[{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
-                                                                            {"type":"null"}
-                                                                           ]
-                                                                  },
-                                                    "dateCancelled":{"anyOf":[{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
-                                                                              {"type":"null"}
-                                                                             ]
-                                                                    },
-                                                    "isArhive":{"type":"number","minimum":0,"exclusiveMinimum":false,"maximum":1,"exclusiveMaximum":false},
-                                                    "price":{"type":"number","minimum":0,"exclusiveMinimum":true},
-                                                    "fee":{"type":"number","minimum":0,"exclusiveMinimum":true}
-                                                   }
+                            "policy":{"type":"array",
+                                      "minitems":1,
+                                      "items":{"type":"object",
+                                               "required":["id","code","externalId","additionalId","companyId","file","insuranceSubProductId",
+                                                           "calculationId","insurerId","taskId","dateCreated","dateConfirmed","dateUpdated",
+                                                           "dateCancelled","isArhive","price","fee"
+                                                          ],
+                                               "additionalProperties":false,
+                                               "properties":{"id":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                             "code":{"type":"string"},
+                                                             "externalId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                                                    {"type":"string"},
+                                                                                    {"type":"null"}
+                                                                                   ]
+                                                                          },
+                                                             "additionalId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                                                      {"type":"string"},
+                                                                                      {"type":"null"}
+                                                                                     ]
+                                                                            },
+                                                             "companyId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                             "file":{"type":"number"},
+                                                             "insuranceSubProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                             "calculationId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                             "insurerId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                             "taskId":{"type":"number","minimum":1,"exclusiveMinimum":false},
+                                                             "dateCreated":{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
+                                                             "dateConfirmed":{"anyOf":[{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
+                                                                                       {"type":"null"}
+                                                                                      ]
+                                                                             },
+                                                             "dateUpdated":{"anyOf":[{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
+                                                                                     {"type":"null"}
+                                                                                    ]
+                
+                                                                           },
+                                                             "dateCancelled":{"anyOf":[{"type":"string","pattern":"^[0-9]{2}.[0-9]{2}.[0-9]{4} [0-9]{2}:[0-9]{2}:[0-9]{2}$"},
+                                                                                       {"type":"null"}
+                                                                                      ]
+                                                                             },
+                                                             "isArhive":{"type":"number","minimum":0,"exclusiveMinimum":false,"maximum":1,"exclusiveMaximum":false},
+                                                             "price":{"type":"number","minimum":0,"exclusiveMinimum":true},
+                                                             "fee":{"type":"number","minimum":0,"exclusiveMinimum":true}
+                                                            }
+                                              }
                                      },
                             "file":{"type":"object",
                                     "required":["id","name","mimeType","size","downloadLink"],
