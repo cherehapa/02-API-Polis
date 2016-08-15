@@ -7119,7 +7119,6 @@ FIXME: схема почти такая же ка и для /quote, так чт�
         "id": 78771,
         "code": "CAS-HA9000466",
         "externalId": 8419290,
-        "additionalId": null,
         "companyId": 23,
         "file": 4,
         "insuranceSubProductId": 29,
@@ -7206,7 +7205,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                             "policy":{"type":"array",
                                       "minitems":1,
                                       "items":{"type":"object",
-                                               "required":["id","code","externalId","additionalId","companyId","file","insuranceSubProductId",
+                                               "required":["id","code","externalId","companyId","file","insuranceSubProductId",
                                                            "calculationId","insurerId","taskId","dateCreated","dateConfirmed","dateUpdated",
                                                            "dateCancelled","isArhive","price","fee"
                                                           ],
@@ -7218,11 +7217,6 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                                                     {"type":"null"}
                                                                                    ]
                                                                           },
-                                                             "additionalId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                                                      {"type":"string"},
-                                                                                      {"type":"null"}
-                                                                                     ]
-                                                                            },
                                                              "companyId":{"type":"number","minimum":1,"exclusiveMinimum":false},
                                                              "file":{"type":"number"},
                                                              "insuranceSubProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
@@ -7396,7 +7390,6 @@ FIXME: схема почти такая же ка и для /quote, так чт�
           "id": 5,
           "code": "2301159-3",
           "externalId": "2301159-3",
-          "additionalId": null,
           "companyId": 35,
           "file": 62385,
           "insuranceSubProductId": 893,
@@ -7420,7 +7413,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
               "additionalProperties":false,
               "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
                             "policy":{"type":"object",
-                                      "required":["id","code","externalId","additionalId","companyId","file","insuranceSubProductId",
+                                      "required":["id","code","externalId","companyId","file","insuranceSubProductId",
                                                   "calculationId","insurerId","taskId","dateCreated","dateConfirmed","dateUpdated",
                                                   "dateCancelled","isArhive","price","fee"
                                                  ],
@@ -7432,11 +7425,6 @@ FIXME: схема почти такая же ка и для /quote, так чт�
                                                                            {"type":"null"}
                                                                           ]
                                                                  },
-                                                    "additionalId":{"anyOf":[{"type":"number","minimum":1,"exclusiveMinimum":false},
-                                                                             {"type":"null"}
-                                                                             ]
-
-                                                                   },
                                                     "companyId":{"type":"number","minimum":1,"exclusiveMinimum":false},
                                                     "file":{"type":"number"},
                                                     "insuranceSubProductId":{"type":"number","minimum":1,"exclusiveMinimum":false},
