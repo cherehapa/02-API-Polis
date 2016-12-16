@@ -3,6 +3,9 @@ HOST: http://api.sandbox.cherehapa.ru/v2/
 
 # API проекта "Черехапа Страхование" v2.0 - Расчет и выписка полиса
 
+В каждом разделе есть пример ПРАВИЛЬНОГО ответа системы для сравнения;
+Ограничения в схемах на значения status даны для ответов на корректные запросы (ответов которые не возвращают ошибку).
+
 ## Параметры для создания полиса
 При расчете полиса запрос **request** более не создается. При выполнении расчета только расчет, и выписать используя для этого requestId более нельзя, ибо его не будет в ответе. Только через параметры для выписки полиса! Мы более не храним состояние между расчетом и выпиской, делая эти операции атомарными и не зависимыми. 
 
@@ -3082,7 +3085,7 @@ FIXME: также объект InfoPerTourist будет усечен - оста
             { "type":"object",
               "required":["status","data"],
               "additionalProperties":false,
-              "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+              "properties":{"status":{"type":"number","minimum":200,"exclusiveMinimum":false,"maximum":200,"exclusiveMaximum":false},
                             "data":{"type":"array","minitems":1,
                                     "items":{"type":"object",
                                              "required":["productId","companyId","insuranceSubProductId","territory",
@@ -6325,7 +6328,7 @@ FIXME: схема у ответа с пакетами такая же как в�
             { "type":"object",
               "required":["status","data"],
               "additionalProperties":false,
-              "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+              "properties":{"status":{"type":"number","minimum":200,"exclusiveMinimum":false,"maximum":200,"exclusiveMaximum":false},
                             "data":{"type":"array","minitems":1,
                                     "items":{"type":"object",
                                              "required":["productId","companyId","insuranceSubProductId","territory",
@@ -6688,7 +6691,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
             { "type":"object",
               "required":["status","data"],
               "additionalProperties":false,
-              "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+              "properties":{"status":{"type":"number","minimum":200,"exclusiveMinimum":false,"maximum":200,"exclusiveMaximum":false},
                             "data":{"type":"object",
                                     "required":["productId","companyId","insuranceSubProductId","territory",
                                                 "insuredDays","services","sport","currency","price","priceRub",
@@ -6987,7 +6990,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
 
             {
              "type":"object",
-             "properties":{"status": {"type":"number","minimum":100,"maximum":600,"exclusiveMinimum": false,"exclusiveMaximum": false},
+             "properties":{"status": {"type":"number","minimum":201,"maximum":201,"exclusiveMinimum": false,"exclusiveMaximum": false},
                            "data":{"type":"array",
                                    "minitems":1,
                                    "items":{"type":"array"}
@@ -7058,7 +7061,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
 
             {
              "type":"object",
-             "properties":{"status": {"type":"number","minimum":100,"maximum":600,"exclusiveMinimum": false,"exclusiveMaximum": false},
+             "properties":{"status": {"type":"number","minimum":201,"maximum":201,"exclusiveMinimum": false,"exclusiveMaximum": false},
                            "data":{"type":"array",
                                    "minitems":1,
                                    "items":{"type":"array"}
@@ -7212,7 +7215,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
             { "type":"object",
               "required":["status","data","task"],
               "additionalProperties":true,
-              "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+              "properties":{"status":{"type":"number","minimum":200,"exclusiveMinimum":false,"maximum":200,"exclusiveMaximum":false},
                             "request":{"type":"object",
                                       "required":["id","insurerId","dateStart","dateEnd","dateVisa","insuredDays","currencyId",
                                                   "source","url","dateCreated","dateUpdated"
@@ -7458,7 +7461,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
             { "type":"object",
               "required":["status","policy"],
               "additionalProperties":false,
-              "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+              "properties":{"status":{"type":"number","minimum":200,"exclusiveMinimum":false,"maximum":200,"exclusiveMaximum":false},
                             "policy":{"type":"object",
                                       "required":["id","code","externalId","companyId","file","insuranceSubProductId",
                                                   "calculationId","insurerId","taskId","dateCreated","dateConfirmed","dateUpdated",
@@ -7536,7 +7539,7 @@ FIXME: схема почти такая же ка и для /quote, так чт�
             { "type":"object",
               "required":["status","file"],
               "additionalProperties":false,
-              "properties":{"status":{"type":"number","minimum":100,"exclusiveMinimum":false,"maximum":600,"exclusiveMaximum":false},
+              "properties":{"status":{"type":"number","minimum":200,"exclusiveMinimum":false,"maximum":200,"exclusiveMaximum":false},
                             "file":{"type":"object",
                                     "required":["id","name","mimeType","size","downloadLink"],
                                     "additionalProperties":false,
